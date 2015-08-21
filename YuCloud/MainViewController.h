@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MainViewController.h
 //  YuCloud
 //
 //  Created by 熊国锋 on 15/8/21.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface MainViewController : UIViewController
 
 
 @end
