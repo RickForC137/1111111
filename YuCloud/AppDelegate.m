@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
+#import "LeftOptionsViewController.h"
 
 @interface AppDelegate ()
 
@@ -18,13 +19,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //if first time running, show the welcome
-    
-    //then enter the main view
+    //this is the main window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen]bounds]];
     MainViewController *vc = [[MainViewController alloc] init];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
     [self.window makeKeyAndVisible];
+    
+    //if first time running, show the welcome
+    MainViewController *mainVC = [[MainViewController alloc] init];
+    self.mainNavigationController = [[UINavigationController alloc] initWithRootViewController:mainVC];
+    LeftOptionsViewController *leftVC = [[LeftOptionsViewController alloc] init];
+    self.LeftSlideVC = [[LeftSlideViewController alloc] initWithLeftView:leftVC andMainView:self.mainNavigationController];
+    self.window.rootViewController = self.LeftSlideVC;
+    
+    [[UINavigationBar appearance] setBarTintColor:[UIColor purpleColor]];
+    
+    //then enter the main view
     return YES;
 }
 

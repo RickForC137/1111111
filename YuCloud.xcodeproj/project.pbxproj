@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03BC2AAD1B89958900F118B0 /* LeftOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BC2AAC1B89958900F118B0 /* LeftOptionsViewController.m */; };
+		03BC2AB01B8995B500F118B0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BC2AAF1B8995B500F118B0 /* MainViewController.m */; };
+		03BC2ABB1B8997FF00F118B0 /* LeftSlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BC2AB81B8997FF00F118B0 /* LeftSlideViewController.m */; };
+		03BC2ABC1B8997FF00F118B0 /* UIView_extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BC2ABA1B8997FF00F118B0 /* UIView_extra.m */; };
 		03C96F631B87213400E55897 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C96F621B87213400E55897 /* main.m */; };
 		03C96F661B87213400E55897 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C96F651B87213400E55897 /* AppDelegate.m */; };
 		03C96F691B87213400E55897 /* YuCloud.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03C96F671B87213400E55897 /* YuCloud.xcdatamodeld */; };
-		03C96F6C1B87213400E55897 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C96F6B1B87213400E55897 /* MainViewController.m */; };
 		03C96F711B87213400E55897 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03C96F701B87213400E55897 /* Images.xcassets */; };
 		03C96F741B87213400E55897 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03C96F721B87213400E55897 /* LaunchScreen.xib */; };
 		03C96F801B87213400E55897 /* YuCloudTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C96F7F1B87213400E55897 /* YuCloudTests.m */; };
@@ -27,14 +30,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03BC2AAB1B89958900F118B0 /* LeftOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeftOptionsViewController.h; path = YuCloud/ViewControllers/LeftOptionsViewController.h; sourceTree = "<group>"; };
+		03BC2AAC1B89958900F118B0 /* LeftOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeftOptionsViewController.m; path = YuCloud/ViewControllers/LeftOptionsViewController.m; sourceTree = "<group>"; };
+		03BC2AAE1B8995B500F118B0 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = YuCloud/ViewControllers/MainViewController.h; sourceTree = "<group>"; };
+		03BC2AAF1B8995B500F118B0 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = YuCloud/ViewControllers/MainViewController.m; sourceTree = "<group>"; };
+		03BC2AB71B8997FF00F118B0 /* LeftSlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeftSlideViewController.h; path = YuCloud/ViewControllers/LeftSlideViewController.h; sourceTree = "<group>"; };
+		03BC2AB81B8997FF00F118B0 /* LeftSlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeftSlideViewController.m; path = YuCloud/ViewControllers/LeftSlideViewController.m; sourceTree = "<group>"; };
+		03BC2AB91B8997FF00F118B0 /* UIView_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIView_extra.h; path = YuCloud/ViewControllers/UIView_extra.h; sourceTree = "<group>"; };
+		03BC2ABA1B8997FF00F118B0 /* UIView_extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIView_extra.m; path = YuCloud/ViewControllers/UIView_extra.m; sourceTree = "<group>"; };
 		03C96F5D1B87213400E55897 /* YuCloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YuCloud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03C96F611B87213400E55897 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03C96F621B87213400E55897 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		03C96F641B87213400E55897 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		03C96F651B87213400E55897 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		03C96F681B87213400E55897 /* YuCloud.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YuCloud.xcdatamodel; sourceTree = "<group>"; };
-		03C96F6A1B87213400E55897 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		03C96F6B1B87213400E55897 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		03C96F701B87213400E55897 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		03C96F731B87213400E55897 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		03C96F791B87213400E55897 /* YuCloudTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YuCloudTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,11 +69,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		03A08A7D1B87269E00C0D6AD /* SlideView */ = {
+		03A08A7D1B87269E00C0D6AD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				03BC2AB71B8997FF00F118B0 /* LeftSlideViewController.h */,
+				03BC2AB81B8997FF00F118B0 /* LeftSlideViewController.m */,
+				03BC2AB91B8997FF00F118B0 /* UIView_extra.h */,
+				03BC2ABA1B8997FF00F118B0 /* UIView_extra.m */,
+				03BC2AAE1B8995B500F118B0 /* MainViewController.h */,
+				03BC2AAF1B8995B500F118B0 /* MainViewController.m */,
+				03BC2AAB1B89958900F118B0 /* LeftOptionsViewController.h */,
+				03BC2AAC1B89958900F118B0 /* LeftOptionsViewController.m */,
 			);
-			name = SlideView;
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		03A08A7E1B8726AB00C0D6AD /* Location */ = {
@@ -86,7 +103,7 @@
 			children = (
 				03A08A7F1B8726B300C0D6AD /* AMap */,
 				03A08A7E1B8726AB00C0D6AD /* Location */,
-				03A08A7D1B87269E00C0D6AD /* SlideView */,
+				03A08A7D1B87269E00C0D6AD /* ViewControllers */,
 				03C96F5F1B87213400E55897 /* YuCloud */,
 				03C96F7C1B87213400E55897 /* YuCloudTests */,
 				03C96F5E1B87213400E55897 /* Products */,
@@ -107,8 +124,6 @@
 			children = (
 				03C96F641B87213400E55897 /* AppDelegate.h */,
 				03C96F651B87213400E55897 /* AppDelegate.m */,
-				03C96F6A1B87213400E55897 /* MainViewController.h */,
-				03C96F6B1B87213400E55897 /* MainViewController.m */,
 				03C96F701B87213400E55897 /* Images.xcassets */,
 				03C96F721B87213400E55897 /* LaunchScreen.xib */,
 				03C96F671B87213400E55897 /* YuCloud.xcdatamodeld */,
@@ -243,9 +258,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				03C96F661B87213400E55897 /* AppDelegate.m in Sources */,
+				03BC2AB01B8995B500F118B0 /* MainViewController.m in Sources */,
 				03C96F691B87213400E55897 /* YuCloud.xcdatamodeld in Sources */,
-				03C96F6C1B87213400E55897 /* MainViewController.m in Sources */,
+				03BC2ABC1B8997FF00F118B0 /* UIView_extra.m in Sources */,
+				03BC2AAD1B89958900F118B0 /* LeftOptionsViewController.m in Sources */,
 				03C96F631B87213400E55897 /* main.m in Sources */,
+				03BC2ABB1B8997FF00F118B0 /* LeftSlideViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
