@@ -41,7 +41,6 @@
     [self showWelcome:NO];
     
     [[UINavigationBar appearance] setBarTintColor:[UIColor purpleColor]];
-    
     return YES;
 }
 
