@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 #import "LeftOptionsViewController.h"
+#import "WelcomeViewController.h"
+#import "LoginViewController.h"
+#import "SignupViewController.h"
 
 @interface AppDelegate ()
 
@@ -21,21 +24,43 @@
 {
     //this is the main window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen]bounds]];
-    MainViewController *vc = [[MainViewController alloc] init];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
+    self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    //if first time running, show the welcome
+    //main view
     MainViewController *mainVC = [[MainViewController alloc] init];
     self.mainNavigationController = [[UINavigationController alloc] initWithRootViewController:mainVC];
     LeftOptionsViewController *leftVC = [[LeftOptionsViewController alloc] init];
     self.LeftSlideVC = [[LeftSlideViewController alloc] initWithLeftView:leftVC andMainView:self.mainNavigationController];
     self.window.rootViewController = self.LeftSlideVC;
     
+    //here signup and login
+    [self showLogin:NO];
+    
+    //top most is the welcome screen
+    [self showWelcome:NO];
+    
     [[UINavigationBar appearance] setBarTintColor:[UIColor purpleColor]];
     
-    //then enter the main view
     return YES;
+}
+
+- (void)showLogin:(BOOL)animated
+{
+    LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"Login" bundle:nil];
+    [self.mainNavigationController pushViewController:login animated:animated];
+}
+
+- (void)showSignup:(BOOL)animated
+{
+    SignupViewController *signup = [[SignupViewController alloc] initWithNibName:@"Signup" bundle:nil];
+    [self.mainNavigationController pushViewController:signup animated:animated];
+}
+
+- (void)showWelcome:(BOOL)animated
+{
+    WelcomeViewController *welcome = [[WelcomeViewController alloc] init];
+    [self.mainNavigationController pushViewController:welcome animated:NO];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

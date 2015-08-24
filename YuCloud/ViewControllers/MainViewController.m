@@ -8,6 +8,8 @@
 
 #import "MainViewController.h"
 #import "AppDelegate.h"
+#import "AddNewDeviceViewController.h"
+#import "OneDeviceViewController.h"
 
 @interface MainViewController () < UITableViewDataSource, UITableViewDelegate >
 
@@ -24,17 +26,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"YuCloud";
     
-    UIButton *menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    menuBtn.frame = CGRectMake(0, 0, 20, 18);
-    [menuBtn setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
-    [menuBtn addTarget:self action:@selector(openOrCloseLeftList) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuBtn];
-    
-    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    addBtn.frame = CGRectMake(0, 0, 20, 18);
-    [addBtn setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
-    [addBtn addTarget:self action:@selector(addNewDevice) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:@selector(openOrCloseLeftList)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewDevice)];
     
     _tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
@@ -55,11 +48,6 @@
     {
         [tempAppDelegate.LeftSlideVC closeLeftView];
     }
-}
-
-- (void)addNewDevice
-{
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -103,6 +91,13 @@
     welcomeLabel.textAlignment = NSTextAlignmentLeft;
     welcomeLabel.textColor = [UIColor whiteColor];
     [headerView addSubview:welcomeLabel];
+    
+    UIButton *btnTap = [UIButton buttonWithType:UIButtonTypeCustom];
+    rectHeader.origin.y = 0;
+    btnTap.frame = rectHeader;
+    btnTap.backgroundColor = [UIColor clearColor];
+    [btnTap addTarget:self action:@selector(touchOnUserInfo) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:btnTap];
 	
     return headerView;
 }
@@ -143,9 +138,45 @@
     return cell;
 }
 
+- (void)touchOnUserInfo
+{
+    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [tempAppDelegate showLogin:YES];
+}
+
+- (void)addNewDevice
+{
+    AddNewDeviceViewController *vc = [[AddNewDeviceViewController alloc] init];
+    vc.view.backgroundColor = [UIColor whiteColor];
+    vc.title = @"Add new device";
+    
+    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [tempAppDelegate.mainNavigationController pushViewController:vc animated:YES];
+}
+
+- (void)ViewForOneDeviceEntry
+{
+    OneDeviceViewController *vc = [[OneDeviceViewController alloc] init];
+    vc.view.backgroundColor = [UIColor whiteColor];
+    vc.title = @"Device";
+    
+    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [tempAppDelegate.mainNavigationController pushViewController:vc animated:YES];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    if(indexPath.row == [tableView numberOfRowsInSection:indexPath.section] - 1)
+    {
+        //this is the "Add new device" item
+        [self addNewDevice];
+    }
+    else
+    {
+        [self ViewForOneDeviceEntry];
+    }
 }
 
 - (void)didReceiveMemoryWarning

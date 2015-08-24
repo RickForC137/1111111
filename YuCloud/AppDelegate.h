@@ -27,5 +27,9 @@
 - (NSURL *)applicationDocumentsDirectory;
 
 
+- (void)showLogin:(BOOL)animated;
+- (void)showSignup:(BOOL)animated;
+- (void)showWelcome:(BOOL)animated;
+
 @end
 
