@@ -7,6 +7,7 @@
 //
 
 #import "AddNewDeviceViewController.h"
+#import "QRScanViewController.h"
 
 @interface AddNewDeviceViewController ()
 
@@ -18,6 +19,37 @@
 {
     [super viewDidLoad];
     
+    
+}
+
+- (BOOL)validateCamera
+{
+    return TRUE;
+//    return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] && [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear];
+}
+
+- (IBAction)QRScanSelected:(id)sender
+{
+    if ([self validateCamera])
+    {
+        [self showQRScanViewController];
+    }
+    else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"没有摄像头或摄像头不可用" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+    
+}
+
+- (void)showQRScanViewController
+{
+    QRScanViewController *vc = [[QRScanViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)ManuallyScanSelected:(id)sender
+{
     
 }
 

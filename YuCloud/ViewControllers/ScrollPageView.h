@@ -12,21 +12,23 @@
 
 @interface ScrollPageView : UIView<UIScrollViewDelegate>
 {
-    UIView *firstView;
-    UIView *middleView;
-    UIView *lastView;
+    UIView  *firstView;
+    UIView  *middleView;
+    UIView  *lastView;
     
-    UIGestureRecognizer     *tap;
-    __unsafe_unretained id <ScrollPageViewDelegate>  _delegate;
-    NSTimer         *autoScrollTimer;
+    UIGestureRecognizer                                 *tap;
+    __unsafe_unretained id <ScrollPageViewDelegate>     _delegate;
+    NSTimer                                             *autoScrollTimer;
 }
-@property (nonatomic,readonly)    UIScrollView *scrollView;
-@property (nonatomic,readonly)  UIPageControl *pageControl;
-@property (nonatomic,assign)    NSInteger currentPage;
-@property (nonatomic,strong)    NSMutableArray *viewsArray;
-@property (nonatomic,assign)    NSTimeInterval    autoScrollDelayTime;
+@property (nonatomic,readonly)      UIScrollView        *scrollView;
+@property (nonatomic,readonly)      UIPageControl       *pageControl;
+@property (nonatomic,assign)        NSInteger           currentPage;
+@property (nonatomic,strong)        NSMutableArray      *viewsArray;
+@property (nonatomic,strong)        NSMutableArray      *imageArray;
+@property (nonatomic,assign)        NSTimeInterval      autoScrollDelayTime;
+@property (nonatomic,assign)        BOOL                shouldAutoScroll;
 
-@property (nonatomic,assign) id<ScrollPageViewDelegate> delegate;
+@property (nonatomic,assign) id <ScrollPageViewDelegate> delegate;
 
 
 -(void)shouldAutoShow:(BOOL)shouldStart;//自动滚动，界面不在的时候请调用这个停止timer
@@ -40,3 +42,5 @@
 - (void)didClickPage:(ScrollPageView *)view atIndex:(NSInteger)index;
 
 @end
+
+

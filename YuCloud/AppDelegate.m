@@ -35,12 +35,12 @@
     self.window.rootViewController = self.LeftSlideVC;
     
     //here signup and login
-    [self showLogin:NO];
+    //[self showLogin:NO];
     
     //top most is the welcome screen
-    [self showWelcome:NO];
+    //[self showWelcome:NO];
     
-    [[UINavigationBar appearance] setBarTintColor:[UIColor purpleColor]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor brownColor]];
     return YES;
 }
 

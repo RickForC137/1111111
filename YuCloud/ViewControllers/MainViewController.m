@@ -81,7 +81,7 @@
     CGRect rectHeader = [_tableView bounds];
     rectHeader.size.height = [self tableView:_tableView heightForHeaderInSection:0];
     UIView *headerView = [[UIView alloc] initWithFrame:rectHeader];
-    headerView.backgroundColor = [UIColor grayColor];
+    headerView.backgroundColor = [UIColor lightGrayColor];
     
     CGRect rectWelcome = rectHeader;
     rectWelcome.origin.y = 0;
@@ -146,7 +146,7 @@
 
 - (void)addNewDevice
 {
-    AddNewDeviceViewController *vc = [[AddNewDeviceViewController alloc] init];
+    AddNewDeviceViewController *vc = [[AddNewDeviceViewController alloc] initWithNibName:@"AddDevice" bundle:nil];
     vc.view.backgroundColor = [UIColor whiteColor];
     vc.title = @"Add new device";
     

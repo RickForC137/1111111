@@ -26,7 +26,8 @@
     [self.navigationController.navigationBar setHidden:YES];
     
     CGRect rectPage = self.view.bounds;
-    rectPage.size.height -= 80;
+    rectPage.origin.y += 20;            //status bar
+    rectPage.size.height -= 100;
     ScrollPageView *scrollPage = [[ScrollPageView alloc]initWithFrame:rectPage];
     UIImageView *imageView1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"watch1"]];
     UIImageView *imageView2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"watch2"]];
@@ -35,9 +36,11 @@
     scrollPage.autoScrollDelayTime = 3.0;
     scrollPage.delegate = self;
     NSMutableArray *viewsArray = [[NSMutableArray alloc]initWithObjects:imageView1, imageView2, imageView3, nil];
+    NSMutableArray *imgArray = [[NSMutableArray alloc] initWithObjects:[UIImage imageNamed:@"watch1"], [UIImage imageNamed:@"watch2"], [UIImage imageNamed:@"watch3"], nil];
     [scrollPage setViewsArray:viewsArray];
+    [scrollPage setImageArray:imgArray];
     [self.view addSubview:scrollPage];
-    [scrollPage shouldAutoShow:NO];
+    [scrollPage shouldAutoShow:YES];
     
     //show the Enter button
     CGRect rectBtn = CGRectMake(0, 0, 80, 40);
