@@ -30,7 +30,7 @@
 
 - (void)EnterSignup:(BOOL)animated
 {
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate *tempAppDelegate = getAppDelegate();
     [tempAppDelegate showSignup:YES];
 }
 

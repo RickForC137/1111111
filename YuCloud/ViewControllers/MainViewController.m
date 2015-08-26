@@ -38,7 +38,7 @@
 
 - (void)openOrCloseLeftList
 {
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate *tempAppDelegate = getAppDelegate();
     
     if (tempAppDelegate.LeftSlideVC.closed)
     {
@@ -140,7 +140,7 @@
 
 - (void)touchOnUserInfo
 {
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate *tempAppDelegate = getAppDelegate();
     [tempAppDelegate showLogin:YES];
 }
 
@@ -150,7 +150,7 @@
     vc.view.backgroundColor = [UIColor whiteColor];
     vc.title = @"Add new device";
     
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate *tempAppDelegate = getAppDelegate();
     [tempAppDelegate.mainNavigationController pushViewController:vc animated:YES];
 }
 
@@ -160,7 +160,7 @@
     vc.view.backgroundColor = [UIColor whiteColor];
     vc.title = @"Device";
     
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate *tempAppDelegate = getAppDelegate();
     [tempAppDelegate.mainNavigationController pushViewController:vc animated:YES];
 }
 

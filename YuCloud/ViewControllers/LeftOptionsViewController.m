@@ -122,7 +122,7 @@ typedef NS_ENUM(NSInteger, LeftOptionsItems)
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     //close left slide view
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate *tempAppDelegate = getAppDelegate();
     [tempAppDelegate.LeftSlideVC closeLeftView];
     
     UIViewController *vc = [[UIViewController alloc] init];

@@ -56,7 +56,7 @@
 
 - (void)DismissWelcome
 {
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate *tempAppDelegate = getAppDelegate();
     [tempAppDelegate.mainNavigationController popViewControllerAnimated:NO];
 }
 

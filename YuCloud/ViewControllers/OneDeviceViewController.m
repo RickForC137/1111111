@@ -48,6 +48,8 @@
     
     [self.mapView setDelegate:self];
     [self.mapView setShowsUserLocation:YES];
+    [self.mapView setShowsCompass:NO];
+    [self.mapView setShowsScale:NO];
     [self.mapView setUserTrackingMode:MAUserTrackingModeFollow animated:YES];
     [self.mapView setPausesLocationUpdatesAutomatically:NO];
     
@@ -65,9 +67,14 @@
     
 }
 
-- (void)LocateCurrentPos
+- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
 {
     
+}
+
+- (void)LocateCurrentPos
+{
+    [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -86,7 +93,7 @@
 
 - (void)hidesBarsOnTap:(BOOL)hide
 {
-//    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//    AppDelegate *tempAppDelegate = getAppDelegate();
 //    [tempAppDelegate.mainNavigationController setHidesBarsOnTap:hide];
 }
 

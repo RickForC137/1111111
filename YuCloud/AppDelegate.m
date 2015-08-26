@@ -12,10 +12,17 @@
 #import "WelcomeViewController.h"
 #import "LoginViewController.h"
 #import "SignupViewController.h"
+#import "Run.h"
 
 @interface AppDelegate ()
 
 @end
+
+AppDelegate *getAppDelegate()
+{
+    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    return tempAppDelegate;
+}
 
 @implementation AppDelegate
 
@@ -38,10 +45,60 @@
     //[self showLogin:NO];
     
     //top most is the welcome screen
-    //[self showWelcome:NO];
+    if([self isFirstRun])
+    {
+        [self showWelcome:NO];
+    }
+    [self changeFirstRun:NO];
+    [self changeLastAccount:@"xiongguofeng"];
     
     [[UINavigationBar appearance] setBarTintColor:[UIColor brownColor]];
     return YES;
+}
+
+- (BOOL)isFirstRun
+{
+    if([[self.fetchedResultsController fetchedObjects] count])
+    {
+        Run *item = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        return item.first_run;
+    }
+    
+    return YES;
+}
+
+- (void)changeFirstRun:(BOOL)first
+{
+    Run *item = nil;
+    if([[self.fetchedResultsController fetchedObjects] count])
+    {
+        item = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    }
+    else
+    {
+        item = (Run *)[NSEntityDescription insertNewObjectForEntityForName:@"Run" inManagedObjectContext:self.managedObjectContext];
+    }
+    [item setValue:[NSNumber numberWithBool:first] forKey:@"first_run"];
+    [item setValue:[NSDate date] forKey:@"last_time"];
+    
+    [self saveContext];
+}
+
+- (void)changeLastAccount:(NSString *)account
+{
+    Run *item = nil;
+    if([[self.fetchedResultsController fetchedObjects] count])
+    {
+        item = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    }
+    else
+    {
+        item = (Run *)[NSEntityDescription insertNewObjectForEntityForName:@"Run" inManagedObjectContext:self.managedObjectContext];
+    }
+    [item setValue:account forKey:@"last_account"];
+    [item setValue:[NSDate date] forKey:@"last_time"];
+    
+    [self saveContext];
 }
 
 - (void)showLogin:(BOOL)animated
@@ -93,9 +150,10 @@
 
 #pragma mark - Core Data stack
 
-@synthesize managedObjectContext = _managedObjectContext;
-@synthesize managedObjectModel = _managedObjectModel;
-@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+@synthesize managedObjectContext        = _managedObjectContext;
+@synthesize managedObjectModel          = _managedObjectModel;
+@synthesize persistentStoreCoordinator  = _persistentStoreCoordinator;
+@synthesize fetchedResultsController    = _fetchedResultsController;
 
 - (NSURL *)applicationDocumentsDirectory
 {
@@ -165,6 +223,31 @@
     return _managedObjectContext;
 }
 
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    if(_fetchedResultsController)
+    {
+        return _fetchedResultsController;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Run" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    // Create the sort descriptors array.
+    NSSortDescriptor *authorDescriptor = [[NSSortDescriptor alloc] initWithKey:@"first_run" ascending:YES];
+    NSArray *sortDescriptors = @[authorDescriptor];
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    
+    // Create and initialize the fetch results controller.
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
+    
+    NSError *error;
+    [_fetchedResultsController performFetch:&error];
+    
+    return _fetchedResultsController;
+}
+
 #pragma mark - Core Data Saving support
 
 - (void)saveContext
@@ -173,13 +256,15 @@
     if (managedObjectContext != nil)
     {
         NSError *error = nil;
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error])
+        if (![managedObjectContext save:&error])
         {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
+        
+        [_fetchedResultsController performFetch:&error];
     }
 }
 
