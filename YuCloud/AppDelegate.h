@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "CommPros.h"
 #import "MainViewController.h"
 #import "LeftSlideViewController.h"
+#import "DeviceDataObject.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

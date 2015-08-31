@@ -15,8 +15,12 @@
 		032A58B11B8AA8DC008A1EAE /* ScrollPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 032A58B01B8AA8DC008A1EAE /* ScrollPageView.m */; };
 		032A58B71B8AAECF008A1EAE /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032A58B61B8AAECF008A1EAE /* LoginViewController.m */; };
 		032A58BA1B8ACB81008A1EAE /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032A58B91B8ACB81008A1EAE /* SignupViewController.m */; };
+		032E7ED51B9449CD00C9F845 /* DeviceInteractionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032E7ED41B9449CD00C9F845 /* DeviceInteractionViewController.m */; };
+		032E7ED81B9449E400C9F845 /* DeviceWarningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032E7ED71B9449E400C9F845 /* DeviceWarningViewController.m */; };
+		032E7EDB1B9449FD00C9F845 /* DeviceSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032E7EDA1B9449FD00C9F845 /* DeviceSettingsViewController.m */; };
 		0348143D1B8D8E7500B4B364 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 0348143C1B8D8E7500B4B364 /* Account.m */; };
-		034814401B8D90DE00B4B364 /* Run.m in Sources */ = {isa = PBXBuildFile; fileRef = 0348143F1B8D90DE00B4B364 /* Run.m */; };
+		034814401B8D90DE00B4B364 /* RunInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0348143F1B8D90DE00B4B364 /* RunInfo.m */; };
+		03858BC11B9003C400AEDF06 /* DeviceMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03858BC01B9003C400AEDF06 /* DeviceMenuView.m */; };
 		039779B31B8AEC1100F8B76D /* Signup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 039779B11B8AEC1100F8B76D /* Signup.xib */; };
 		039779B61B8AECA200F8B76D /* Login.xib in Resources */ = {isa = PBXBuildFile; fileRef = 039779B41B8AECA200F8B76D /* Login.xib */; };
 		039779BA1B8AFC3800F8B76D /* SmsVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 039779B81B8AFC3800F8B76D /* SmsVerifyViewController.m */; };
@@ -46,6 +50,9 @@
 		03C96F801B87213400E55897 /* YuCloudTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C96F7F1B87213400E55897 /* YuCloudTests.m */; };
 		03D3EBCE1B8B12AF00C2F51F /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D3EBCD1B8B12AF00C2F51F /* MAMapKit.framework */; };
 		03D3EBD01B8B12BB00C2F51F /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 03D3EBCF1B8B12BB00C2F51F /* AMap.bundle */; };
+		03F320401B8EF5AC000356B0 /* DeviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F3203E1B8EF5AC000356B0 /* DeviceTableViewCell.m */; };
+		03F320411B8EF5AC000356B0 /* DeviceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03F3203F1B8EF5AC000356B0 /* DeviceTableViewCell.xib */; };
+		03F320461B8F0DAA000356B0 /* DeviceDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F320451B8F0DAA000356B0 /* DeviceDataObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,10 +82,18 @@
 		032A58B61B8AAECF008A1EAE /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = YuCloud/ViewControllers/LoginViewController.m; sourceTree = "<group>"; };
 		032A58B81B8ACB81008A1EAE /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignupViewController.h; path = YuCloud/ViewControllers/SignupViewController.h; sourceTree = "<group>"; };
 		032A58B91B8ACB81008A1EAE /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignupViewController.m; path = YuCloud/ViewControllers/SignupViewController.m; sourceTree = "<group>"; };
+		032E7ED31B9449CD00C9F845 /* DeviceInteractionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceInteractionViewController.h; path = YuCloud/ViewControllers/DeviceInteractionViewController.h; sourceTree = "<group>"; };
+		032E7ED41B9449CD00C9F845 /* DeviceInteractionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceInteractionViewController.m; path = YuCloud/ViewControllers/DeviceInteractionViewController.m; sourceTree = "<group>"; };
+		032E7ED61B9449E400C9F845 /* DeviceWarningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceWarningViewController.h; path = YuCloud/ViewControllers/DeviceWarningViewController.h; sourceTree = "<group>"; };
+		032E7ED71B9449E400C9F845 /* DeviceWarningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceWarningViewController.m; path = YuCloud/ViewControllers/DeviceWarningViewController.m; sourceTree = "<group>"; };
+		032E7ED91B9449FD00C9F845 /* DeviceSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceSettingsViewController.h; path = YuCloud/ViewControllers/DeviceSettingsViewController.h; sourceTree = "<group>"; };
+		032E7EDA1B9449FD00C9F845 /* DeviceSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceSettingsViewController.m; path = YuCloud/ViewControllers/DeviceSettingsViewController.m; sourceTree = "<group>"; };
 		0348143B1B8D8E7500B4B364 /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Account.h; path = "YuCloud/Core Data/Account.h"; sourceTree = "<group>"; };
 		0348143C1B8D8E7500B4B364 /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Account.m; path = "YuCloud/Core Data/Account.m"; sourceTree = "<group>"; };
-		0348143E1B8D90DE00B4B364 /* Run.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Run.h; path = "YuCloud/Core Data/Run.h"; sourceTree = "<group>"; };
-		0348143F1B8D90DE00B4B364 /* Run.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Run.m; path = "YuCloud/Core Data/Run.m"; sourceTree = "<group>"; };
+		0348143E1B8D90DE00B4B364 /* RunInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RunInfo.h; path = "YuCloud/Core Data/RunInfo.h"; sourceTree = "<group>"; };
+		0348143F1B8D90DE00B4B364 /* RunInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RunInfo.m; path = "YuCloud/Core Data/RunInfo.m"; sourceTree = "<group>"; };
+		03858BBF1B9003C400AEDF06 /* DeviceMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceMenuView.h; path = YuCloud/ViewControllers/DeviceMenuView.h; sourceTree = "<group>"; };
+		03858BC01B9003C400AEDF06 /* DeviceMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceMenuView.m; path = YuCloud/ViewControllers/DeviceMenuView.m; sourceTree = "<group>"; };
 		039779B21B8AEC1100F8B76D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Signup.xib; sourceTree = "<group>"; };
 		039779B51B8AECA200F8B76D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Login.xib; sourceTree = "<group>"; };
 		039779B71B8AFC3800F8B76D /* SmsVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SmsVerifyViewController.h; path = YuCloud/ViewControllers/SmsVerifyViewController.h; sourceTree = "<group>"; };
@@ -119,6 +134,11 @@
 		03C96F7F1B87213400E55897 /* YuCloudTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YuCloudTests.m; sourceTree = "<group>"; };
 		03D3EBCD1B8B12AF00C2F51F /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAMapKit.framework; path = YuCloud/MAMapKit/MAMapKit.framework; sourceTree = "<group>"; };
 		03D3EBCF1B8B12BB00C2F51F /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AMap.bundle; path = YuCloud/MAMapKit/MAMapKit.framework/Versions/2.6.0.e9e21b6/Resources/AMap.bundle; sourceTree = "<group>"; };
+		03F3203D1B8EF5AC000356B0 /* DeviceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceTableViewCell.h; path = YuCloud/ViewControllers/DeviceTableViewCell.h; sourceTree = "<group>"; };
+		03F3203E1B8EF5AC000356B0 /* DeviceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceTableViewCell.m; path = YuCloud/ViewControllers/DeviceTableViewCell.m; sourceTree = "<group>"; };
+		03F3203F1B8EF5AC000356B0 /* DeviceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DeviceTableViewCell.xib; path = ViewControllers/DeviceTableViewCell.xib; sourceTree = "<group>"; };
+		03F320441B8F0DAA000356B0 /* DeviceDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceDataObject.h; path = "YuCloud/Device Data/DeviceDataObject.h"; sourceTree = "<group>"; };
+		03F320451B8F0DAA000356B0 /* DeviceDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceDataObject.m; path = "YuCloud/Device Data/DeviceDataObject.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,20 +182,13 @@
 			name = QR;
 			sourceTree = "<group>";
 		};
-		0312B2C11B8C52BB00F7DE0D /* Camera and Album */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Camera and Album";
-			sourceTree = "<group>";
-		};
 		034814371B8D8E0C00B4B364 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
 				0348143B1B8D8E7500B4B364 /* Account.h */,
 				0348143C1B8D8E7500B4B364 /* Account.m */,
-				0348143E1B8D90DE00B4B364 /* Run.h */,
-				0348143F1B8D90DE00B4B364 /* Run.m */,
+				0348143E1B8D90DE00B4B364 /* RunInfo.h */,
+				0348143F1B8D90DE00B4B364 /* RunInfo.m */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -183,7 +196,6 @@
 		03A08A7D1B87269E00C0D6AD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				0312B2C11B8C52BB00F7DE0D /* Camera and Album */,
 				0311DBAC1B8C475E009555D2 /* QR */,
 				03BC2AB91B8997FF00F118B0 /* UIView_extra.h */,
 				03BC2ABA1B8997FF00F118B0 /* UIView_extra.m */,
@@ -193,10 +205,6 @@
 				03BC2AB81B8997FF00F118B0 /* LeftSlideViewController.m */,
 				03BC2AAE1B8995B500F118B0 /* MainViewController.h */,
 				03BC2AAF1B8995B500F118B0 /* MainViewController.m */,
-				032A58A41B8AA1CE008A1EAE /* AddNewDeviceViewController.h */,
-				032A58A51B8AA1CE008A1EAE /* AddNewDeviceViewController.m */,
-				032A58A71B8AA33C008A1EAE /* OneDeviceViewController.h */,
-				032A58A81B8AA33C008A1EAE /* OneDeviceViewController.m */,
 				032A58AF1B8AA8DC008A1EAE /* ScrollPageView.h */,
 				032A58B01B8AA8DC008A1EAE /* ScrollPageView.m */,
 				032A58AC1B8AA86F008A1EAE /* WelcomeViewController.h */,
@@ -246,6 +254,7 @@
 				034814371B8D8E0C00B4B364 /* Core Data */,
 				03C021131B8C1F1100D1136B /* Common */,
 				03A08A7F1B8726B300C0D6AD /* AMap */,
+				03F320431B8F0D3C000356B0 /* Device */,
 				03A08A7D1B87269E00C0D6AD /* ViewControllers */,
 				03C96F5F1B87213400E55897 /* YuCloud */,
 				03C96F7C1B87213400E55897 /* YuCloudTests */,
@@ -273,6 +282,7 @@
 				039779B11B8AEC1100F8B76D /* Signup.xib */,
 				039779B91B8AFC3800F8B76D /* SmsVerify.xib */,
 				03B6BE521B8C436A00446255 /* AddDevice.xib */,
+				03F3203F1B8EF5AC000356B0 /* DeviceTableViewCell.xib */,
 				03C96F671B87213400E55897 /* YuCloud.xcdatamodeld */,
 				03C96F601B87213400E55897 /* Supporting Files */,
 			);
@@ -303,6 +313,29 @@
 				03C96F7E1B87213400E55897 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		03F320431B8F0D3C000356B0 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				032A58A41B8AA1CE008A1EAE /* AddNewDeviceViewController.h */,
+				032A58A51B8AA1CE008A1EAE /* AddNewDeviceViewController.m */,
+				032A58A71B8AA33C008A1EAE /* OneDeviceViewController.h */,
+				032A58A81B8AA33C008A1EAE /* OneDeviceViewController.m */,
+				03F3203D1B8EF5AC000356B0 /* DeviceTableViewCell.h */,
+				03F3203E1B8EF5AC000356B0 /* DeviceTableViewCell.m */,
+				03F320441B8F0DAA000356B0 /* DeviceDataObject.h */,
+				03F320451B8F0DAA000356B0 /* DeviceDataObject.m */,
+				03858BBF1B9003C400AEDF06 /* DeviceMenuView.h */,
+				03858BC01B9003C400AEDF06 /* DeviceMenuView.m */,
+				032E7ED31B9449CD00C9F845 /* DeviceInteractionViewController.h */,
+				032E7ED41B9449CD00C9F845 /* DeviceInteractionViewController.m */,
+				032E7ED61B9449E400C9F845 /* DeviceWarningViewController.h */,
+				032E7ED71B9449E400C9F845 /* DeviceWarningViewController.m */,
+				032E7ED91B9449FD00C9F845 /* DeviceSettingsViewController.h */,
+				032E7EDA1B9449FD00C9F845 /* DeviceSettingsViewController.m */,
+			);
+			name = Device;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -386,6 +419,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03D3EBD01B8B12BB00C2F51F /* AMap.bundle in Resources */,
+				03F320411B8EF5AC000356B0 /* DeviceTableViewCell.xib in Resources */,
 				039779B31B8AEC1100F8B76D /* Signup.xib in Resources */,
 				03C96F741B87213400E55897 /* LaunchScreen.xib in Resources */,
 				03B6BE531B8C436A00446255 /* AddDevice.xib in Resources */,
@@ -410,16 +444,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				03C96F661B87213400E55897 /* AppDelegate.m in Sources */,
-				034814401B8D90DE00B4B364 /* Run.m in Sources */,
+				03F320461B8F0DAA000356B0 /* DeviceDataObject.m in Sources */,
+				034814401B8D90DE00B4B364 /* RunInfo.m in Sources */,
+				032E7EDB1B9449FD00C9F845 /* DeviceSettingsViewController.m in Sources */,
 				032A58A61B8AA1CE008A1EAE /* AddNewDeviceViewController.m in Sources */,
 				032A58A91B8AA33C008A1EAE /* OneDeviceViewController.m in Sources */,
+				032E7ED51B9449CD00C9F845 /* DeviceInteractionViewController.m in Sources */,
 				032A58BA1B8ACB81008A1EAE /* SignupViewController.m in Sources */,
 				032A58B71B8AAECF008A1EAE /* LoginViewController.m in Sources */,
 				039779BA1B8AFC3800F8B76D /* SmsVerifyViewController.m in Sources */,
 				03BC2AB01B8995B500F118B0 /* MainViewController.m in Sources */,
+				03858BC11B9003C400AEDF06 /* DeviceMenuView.m in Sources */,
 				03C021191B8C237E00D1136B /* CommPros.m in Sources */,
 				0311DBAF1B8C477D009555D2 /* QRScanViewController.m in Sources */,
 				0348143D1B8D8E7500B4B364 /* Account.m in Sources */,
+				03F320401B8EF5AC000356B0 /* DeviceTableViewCell.m in Sources */,
 				03C96F691B87213400E55897 /* YuCloud.xcdatamodeld in Sources */,
 				0311DBB21B8C47D6009555D2 /* QRView.m in Sources */,
 				032A58AE1B8AA86F008A1EAE /* WelcomeViewController.m in Sources */,
@@ -428,6 +467,7 @@
 				032A58B11B8AA8DC008A1EAE /* ScrollPageView.m in Sources */,
 				03C96F631B87213400E55897 /* main.m in Sources */,
 				03BC2ABB1B8997FF00F118B0 /* LeftSlideViewController.m in Sources */,
+				032E7ED81B9449E400C9F845 /* DeviceWarningViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

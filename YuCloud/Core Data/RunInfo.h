@@ -8,7 +8,7 @@
 
 #import <CoreData/CoreData.h>
 
-@interface Run : NSManagedObject
+@interface RunInfo : NSManagedObject
 
 @property (nonatomic, assign) Boolean       first_run;
 @property (nonatomic, strong) NSString      *last_account;

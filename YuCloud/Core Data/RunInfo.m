@@ -1,14 +1,14 @@
 //
-//  Run.m
+//  RunInfo.m
 //  YuCloud
 //
 //  Created by 熊国锋 on 15/8/26.
 //  Copyright (c) 2015年 VIROYAL-ELEC. All rights reserved.
 //
 
-#import "Run.h"
+#import "RunInfo.h"
 
-@implementation Run
+@implementation RunInfo
 
 @dynamic first_run, last_account, last_time;
 

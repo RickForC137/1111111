@@ -12,7 +12,7 @@
 #import "WelcomeViewController.h"
 #import "LoginViewController.h"
 #import "SignupViewController.h"
-#import "Run.h"
+#import "RunInfo.h"
 
 @interface AppDelegate ()
 
@@ -52,7 +52,7 @@ AppDelegate *getAppDelegate()
     [self changeFirstRun:NO];
     [self changeLastAccount:@"xiongguofeng"];
     
-    [[UINavigationBar appearance] setBarTintColor:[UIColor brownColor]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor purpleColor]];
     return YES;
 }
 
@@ -60,7 +60,7 @@ AppDelegate *getAppDelegate()
 {
     if([[self.fetchedResultsController fetchedObjects] count])
     {
-        Run *item = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        RunInfo *item = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
         return item.first_run;
     }
     
@@ -69,14 +69,14 @@ AppDelegate *getAppDelegate()
 
 - (void)changeFirstRun:(BOOL)first
 {
-    Run *item = nil;
+    RunInfo *item = nil;
     if([[self.fetchedResultsController fetchedObjects] count])
     {
         item = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     }
     else
     {
-        item = (Run *)[NSEntityDescription insertNewObjectForEntityForName:@"Run" inManagedObjectContext:self.managedObjectContext];
+        item = (RunInfo *)[NSEntityDescription insertNewObjectForEntityForName:@"RunInfo" inManagedObjectContext:self.managedObjectContext];
     }
     [item setValue:[NSNumber numberWithBool:first] forKey:@"first_run"];
     [item setValue:[NSDate date] forKey:@"last_time"];
@@ -86,14 +86,14 @@ AppDelegate *getAppDelegate()
 
 - (void)changeLastAccount:(NSString *)account
 {
-    Run *item = nil;
+    RunInfo *item = nil;
     if([[self.fetchedResultsController fetchedObjects] count])
     {
         item = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     }
     else
     {
-        item = (Run *)[NSEntityDescription insertNewObjectForEntityForName:@"Run" inManagedObjectContext:self.managedObjectContext];
+        item = (RunInfo *)[NSEntityDescription insertNewObjectForEntityForName:@"RunInfo" inManagedObjectContext:self.managedObjectContext];
     }
     [item setValue:account forKey:@"last_account"];
     [item setValue:[NSDate date] forKey:@"last_time"];
@@ -231,7 +231,7 @@ AppDelegate *getAppDelegate()
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Run" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"RunInfo" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Create the sort descriptors array.

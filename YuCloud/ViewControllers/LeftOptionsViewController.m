@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, LeftOptionsItems)
     // Do any additional setup after loading the view.
     
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    imageview.image = [UIImage imageNamed:@"leftbackiamge"];
+    imageview.image = [UIImage imageNamed:@"leftbackimage"];
     [self.view addSubview:imageview];
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
@@ -89,6 +89,7 @@ typedef NS_ENUM(NSInteger, LeftOptionsItems)
     nameLabel.text = @"Xiong Guofeng";
     nameLabel.textAlignment = NSTextAlignmentCenter;
     nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.font = GetFontWithType(FontTypeOptionsCell);
     [headerView addSubview:nameLabel];
     
     return headerView;
@@ -108,7 +109,7 @@ typedef NS_ENUM(NSInteger, LeftOptionsItems)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.textLabel.font = [UIFont systemFontOfSize:20.0f];
+    cell.textLabel.font = GetFontWithType(FontTypeUserName);
     cell.backgroundColor = [UIColor clearColor];
     cell.textLabel.textColor = [UIColor whiteColor];
     

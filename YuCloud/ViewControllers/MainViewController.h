@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DeviceTableViewCell.h"
 
 @interface MainViewController : UIViewController
 
-
+@property (nonatomic, weak) IBOutlet DeviceTableViewCell *deviceCell;
 @end
 

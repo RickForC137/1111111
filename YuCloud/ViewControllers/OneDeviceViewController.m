@@ -9,13 +9,20 @@
 #import "OneDeviceViewController.h"
 #import "AppDelegate.h"
 #import "MAMapKit/MAMapKit.h"
+#import "DeviceMenuView.h"
+#import "DeviceInteractionViewController.h"
+#import "DeviceWarningViewController.h"
+#import "DeviceSettingsViewController.h"
 
-@interface OneDeviceViewController () < MAMapViewDelegate >
+@interface OneDeviceViewController () < MAMapViewDelegate, DeviceMenuDelegate >
 
 
 @property(nonatomic,strong)MAMapView            *mapView;
+@property(nonatomic,strong)MAUserLocation       *currPosition;
 @end
 
+
+#define DEVICE_VIEW_DEVICE_MENU_HEIGHT  46
 @implementation OneDeviceViewController
 
 - (void)viewDidLoad
@@ -28,20 +35,19 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"Device Location";
     
-    CGRect rectStatus;
-    rectStatus = [[UIApplication sharedApplication] statusBarFrame];
-    
     CGRect rectMain = self.view.bounds;
     CGRect rectMap = rectMain;
-    rectMap.origin.y += rectStatus.size.height;
-    rectMap.size.height -= rectStatus.size.height;
+    
+    //status bar
+    rectMap.origin.y += GetStatusBarHeight();
+    rectMap.size.height -= GetStatusBarHeight();
     
     //toolbar
-    rectMap.origin.y += 44;
-    rectMap.size.height -= 44;
+    rectMap.origin.y += GetNavigationBarHeight();
+    rectMap.size.height -= GetNavigationBarHeight();
     
-    NSUInteger bottomBarHeight = 80;
-    rectMap.size.height -= bottomBarHeight;
+    //device menu bar
+//    rectMap.size.height -= DEVICE_VIEW_DEVICE_MENU_HEIGHT;
     
     self.mapView = [[MAMapView alloc] initWithFrame:rectMap];
     [self.view addSubview:self.mapView];
@@ -50,14 +56,23 @@
     [self.mapView setShowsUserLocation:YES];
     [self.mapView setShowsCompass:NO];
     [self.mapView setShowsScale:NO];
-    [self.mapView setUserTrackingMode:MAUserTrackingModeFollow animated:YES];
-    [self.mapView setPausesLocationUpdatesAutomatically:NO];
+    MACoordinateRegion region;
+    region.center.latitude = 31.913312682074096;
+    region.center.longitude = 118.81326862389281;
+    region.span.latitudeDelta = 0.040990883274265144;
+    region.span.longitudeDelta = 0.030031073499415584;
+    [self.mapView setRegion:region];
     
+    //here we do not follow user's position
+    [self.mapView setUserTrackingMode:MAUserTrackingModeNone animated:YES];
+    
+    NSUInteger compassSize = 20;
     CGRect rectCompass = rectMap;
     rectCompass.origin.x = 8;
-    rectCompass.origin.y = rectCompass.size.height - 22 + 44;
-    rectCompass.size.width = 20;
-    rectCompass.size.height = 20;
+    rectCompass.origin.y = rectCompass.origin.y + rectCompass.size.height - DEVICE_VIEW_DEVICE_MENU_HEIGHT;
+    rectCompass.origin.y -= compassSize;
+    rectCompass.size.width = compassSize;
+    rectCompass.size.height = compassSize;
     
     UIButton *btnCompass = [UIButton buttonWithType:UIButtonTypeCustom];
     btnCompass.frame = rectCompass;
@@ -65,16 +80,42 @@
     [btnCompass addTarget:self action:@selector(LocateCurrentPos) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnCompass];
     
+    //here we create a menu like wechat app
+    CGRect rectMenu = self.view.bounds;
+    rectMenu.origin.y = rectMenu.size.height - DEVICE_VIEW_DEVICE_MENU_HEIGHT;
+    rectMenu.size.height = DEVICE_VIEW_DEVICE_MENU_HEIGHT;
+    rectMenu = CGRectInset(rectMenu, 4, 4);
+    DeviceMenuView *deviceMenu = [[DeviceMenuView alloc] initWithFrame:rectMenu];
+    deviceMenu.layer.cornerRadius = 8;
+    deviceMenu.layer.borderWidth = 1;
+    deviceMenu.layer.borderColor = [[UIColor purpleColor] CGColor];
+    deviceMenu.layer.masksToBounds = YES;
+    deviceMenu.delegate = self;
+    
+    //here is the main init entry
+    [deviceMenu initDeviceMenu];
+    [self.view addSubview:deviceMenu];
 }
 
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
 {
-    
+    if(_currPosition == nil)
+    {
+        //first time location
+        [self LocateCurrentPos];
+        _currPosition = userLocation;
+    }
 }
 
 - (void)LocateCurrentPos
 {
-    [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
+    MACoordinateRegion region = self.mapView.region;
+    region.center = self.mapView.userLocation.coordinate;
+    
+    region.span.latitudeDelta = 0.03;
+    region.span.longitudeDelta = 0.03;
+    
+    [self.mapView setRegion:region animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -89,6 +130,24 @@
     [super viewDidDisappear:animated];
     
     [self hidesBarsOnTap:NO];
+}
+
+- (void)onActionInteraction
+{
+    DeviceInteractionViewController *vc = [[DeviceInteractionViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)onActionWarning
+{
+    DeviceWarningViewController *vc = [[DeviceWarningViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)onActionSettings
+{
+    DeviceSettingsViewController *vc = [[DeviceSettingsViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)hidesBarsOnTap:(BOOL)hide
