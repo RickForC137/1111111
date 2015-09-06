@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ScrollPageView.h"
+#import "WelcomeScrollPageView.h"
 
-@interface WelcomeViewController : UIViewController <ScrollPageViewDelegate>
+@interface WelcomeViewController : UIViewController <WelcomeScrollPageViewDelegate>
 
 @end
 

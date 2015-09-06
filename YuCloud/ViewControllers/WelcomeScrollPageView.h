@@ -1,5 +1,5 @@
 //
-//  ScrollPageView.h
+//  WelcomeScrollPageView.h
 //  YuCloud
 //
 //  Created by 熊国锋 on 15/8/24.
@@ -8,16 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol ScrollPageViewDelegate;
+@protocol WelcomeScrollPageViewDelegate;
 
-@interface ScrollPageView : UIView<UIScrollViewDelegate>
+@interface WelcomeScrollPageView : UIView<UIScrollViewDelegate>
 {
     UIView  *firstView;
     UIView  *middleView;
     UIView  *lastView;
     
     UIGestureRecognizer                                 *tap;
-    __unsafe_unretained id <ScrollPageViewDelegate>     _delegate;
+    __unsafe_unretained id <WelcomeScrollPageViewDelegate>     _delegate;
     NSTimer                                             *autoScrollTimer;
 }
 @property (nonatomic,readonly)      UIScrollView        *scrollView;
@@ -28,7 +28,7 @@
 @property (nonatomic,assign)        NSTimeInterval      autoScrollDelayTime;
 @property (nonatomic,assign)        BOOL                shouldAutoScroll;
 
-@property (nonatomic,assign) id <ScrollPageViewDelegate> delegate;
+@property (nonatomic,assign) id <WelcomeScrollPageViewDelegate> delegate;
 
 
 -(void)shouldAutoShow:(BOOL)shouldStart;//自动滚动，界面不在的时候请调用这个停止timer
@@ -36,10 +36,10 @@
 @end
 
 
-@protocol ScrollPageViewDelegate <NSObject>
+@protocol WelcomeScrollPageViewDelegate <NSObject>
 
 @optional
-- (void)didClickPage:(ScrollPageView *)view atIndex:(NSInteger)index;
+- (void)didClickPage:(WelcomeScrollPageView *)view atIndex:(NSInteger)index;
 
 @end
 

@@ -6,12 +6,12 @@
     },
     {
       "idiom" : "iphone",
-      "scale" : "2x",
-      "filename" : "device-menu2.png"
+      "scale" : "2x"
     },
     {
       "idiom" : "iphone",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "route.png"
     }
   ],
   "info" : {

@@ -8,7 +8,7 @@
 
 #import "WelcomeViewController.h"
 #import "AppDelegate.h"
-#import "ScrollPageView.h"
+#import "WelcomeScrollPageView.h"
 
 @interface WelcomeViewController ()
 
@@ -28,7 +28,7 @@
     CGRect rectPage = self.view.bounds;
     rectPage.origin.y += 20;            //status bar
     rectPage.size.height -= 100;
-    ScrollPageView *scrollPage = [[ScrollPageView alloc]initWithFrame:rectPage];
+    WelcomeScrollPageView *scrollPage = [[WelcomeScrollPageView alloc]initWithFrame:rectPage];
     UIImageView *imageView1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"watch1"]];
     UIImageView *imageView2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"watch2"]];
     UIImageView *imageView3 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"watch3"]];

@@ -1,5 +1,5 @@
 //
-//  DeviceMenuView.h
+//  DeviceControlBar.h
 //  YuCloud
 //
 //  Created by 熊国锋 on 15/8/28.
@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "CommPros.h"
+#import "PushToTalkButton.h"
 
 @protocol DeviceMenuDelegate < NSObject >
 
 - (void)onActionInteraction;
-- (void)onActionWarning;
+- (void)onActionActivity;
 - (void)onActionSettings;
 
 @end
@@ -24,6 +25,8 @@
 @property (nonatomic, strong)   UIImage             *image;
 @property (nonatomic, assign)   CGRect              rect;
 @property (nonatomic, assign)   SEL                 action;
+@property (nonatomic, assign)   NSTextAlignment     alignment;
+@property (nonatomic, assign)   BOOL                bPushToTalk;
 
 
 - (instancetype)initWithName:(NSString *)title action:(SEL)action;
@@ -36,11 +39,12 @@
 
 @property (nonatomic, strong)       NSMutableArray              *arrMenuItems;
 @property (nonatomic, assign)       id                          delegate;
+@property (nonatomic, strong)       PushToTalkButton            *pushToTalkBtn;
 
 @end
 
 //the main view
-@interface DeviceMenuView : UIView
+@interface DeviceControlBar : UIView
 
 @property (nonatomic, assign)       id <DeviceMenuDelegate>     delegate;
 

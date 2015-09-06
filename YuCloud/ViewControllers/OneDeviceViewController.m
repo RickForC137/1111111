@@ -9,10 +9,11 @@
 #import "OneDeviceViewController.h"
 #import "AppDelegate.h"
 #import "MAMapKit/MAMapKit.h"
-#import "DeviceMenuView.h"
+#import "DeviceControlBar.h"
 #import "DeviceInteractionViewController.h"
-#import "DeviceWarningViewController.h"
+#import "DeviceActivityViewController.h"
 #import "DeviceSettingsViewController.h"
+#import "RouteViewController.h"
 
 @interface OneDeviceViewController () < MAMapViewDelegate, DeviceMenuDelegate >
 
@@ -35,6 +36,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"Device Location";
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"route"] style:UIBarButtonItemStylePlain target:self action:@selector(openRouteView)];
     CGRect rectMain = self.view.bounds;
     CGRect rectMap = rectMain;
     
@@ -46,25 +48,16 @@
     rectMap.origin.y += GetNavigationBarHeight();
     rectMap.size.height -= GetNavigationBarHeight();
     
-    //device menu bar
-//    rectMap.size.height -= DEVICE_VIEW_DEVICE_MENU_HEIGHT;
+    _mapView = [[MAMapView alloc] initWithFrame:rectMap];
+    [self.view addSubview:_mapView];
     
-    self.mapView = [[MAMapView alloc] initWithFrame:rectMap];
-    [self.view addSubview:self.mapView];
-    
-    [self.mapView setDelegate:self];
-    [self.mapView setShowsUserLocation:YES];
-    [self.mapView setShowsCompass:NO];
-    [self.mapView setShowsScale:NO];
-    MACoordinateRegion region;
-    region.center.latitude = 31.913312682074096;
-    region.center.longitude = 118.81326862389281;
-    region.span.latitudeDelta = 0.040990883274265144;
-    region.span.longitudeDelta = 0.030031073499415584;
-    [self.mapView setRegion:region];
+    [_mapView setDelegate:self];
+    [_mapView setShowsUserLocation:NO];
+    [_mapView setShowsCompass:NO];
+    [_mapView setShowsScale:NO];
     
     //here we do not follow user's position
-    [self.mapView setUserTrackingMode:MAUserTrackingModeNone animated:YES];
+    [_mapView setUserTrackingMode:MAUserTrackingModeNone animated:NO];
     
     NSUInteger compassSize = 20;
     CGRect rectCompass = rectMap;
@@ -85,16 +78,27 @@
     rectMenu.origin.y = rectMenu.size.height - DEVICE_VIEW_DEVICE_MENU_HEIGHT;
     rectMenu.size.height = DEVICE_VIEW_DEVICE_MENU_HEIGHT;
     rectMenu = CGRectInset(rectMenu, 4, 4);
-    DeviceMenuView *deviceMenu = [[DeviceMenuView alloc] initWithFrame:rectMenu];
-    deviceMenu.layer.cornerRadius = 8;
-    deviceMenu.layer.borderWidth = 1;
-    deviceMenu.layer.borderColor = [[UIColor purpleColor] CGColor];
-    deviceMenu.layer.masksToBounds = YES;
+    DeviceControlBar *deviceMenu = [[DeviceControlBar alloc] initWithFrame:rectMenu];
     deviceMenu.delegate = self;
+    
+    //setting default rect need to be delayed, according to AMAP
+    [self performSelector:@selector(delaySetDefaultRect) withObject:nil afterDelay:0.01];
     
     //here is the main init entry
     [deviceMenu initDeviceMenu];
     [self.view addSubview:deviceMenu];
+}
+
+- (void)delaySetDefaultRect
+{
+    //default region is PRC
+    [_mapView setVisibleMapRect:MAMapRectMake(185869059.60193774, 67920576.65084286, 53678011.05177255, 86314241.771250263) animated:NO];
+}
+
+- (void)openRouteView
+{
+    RouteViewController *vc = [[RouteViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
@@ -109,27 +113,50 @@
 
 - (void)LocateCurrentPos
 {
-    MACoordinateRegion region = self.mapView.region;
-    region.center = self.mapView.userLocation.coordinate;
+    MACoordinateRegion region = _mapView.region;
+    region.center = CLLocationCoordinate2DMake(31.924868258470688, 118.81126655232617);     //device position
     
     region.span.latitudeDelta = 0.03;
     region.span.longitudeDelta = 0.03;
     
-    [self.mapView setRegion:region animated:YES];
+    [_mapView setRegion:region animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    [self hidesBarsOnTap:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     
-    [self hidesBarsOnTap:NO];
+}
+
+- (void)onActionCall
+{
+    NSString *number = @"18625176639";
+    number = [@"telprompt://" stringByAppendingString:number];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:number]];
+}
+
+- (void)onActionHeart
+{
+
+    
+}
+
+- (void)onActionSpeak
+{
+
+    
+}
+
+- (void)onActionMonitoring
+{
+
+    
 }
 
 - (void)onActionInteraction
@@ -138,9 +165,9 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)onActionWarning
+- (void)onActionActivity
 {
-    DeviceWarningViewController *vc = [[DeviceWarningViewController alloc] init];
+    DeviceActivityViewController *vc = [[DeviceActivityViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -148,12 +175,6 @@
 {
     DeviceSettingsViewController *vc = [[DeviceSettingsViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)hidesBarsOnTap:(BOOL)hide
-{
-//    AppDelegate *tempAppDelegate = getAppDelegate();
-//    [tempAppDelegate.mainNavigationController setHidesBarsOnTap:hide];
 }
 
 - (void)didReceiveMemoryWarning

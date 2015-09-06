@@ -16,8 +16,8 @@
 @interface MainViewController () < UITableViewDataSource, UITableViewDelegate >
 
 @property(nonatomic,strong)UITableView          *tableView;
-@property(nonatomic,strong)UIView               *headView;
-@property(nonatomic,strong)UIView               *fotterView;
+@property(nonatomic,strong)UIView               *headViewForSection;
+@property(nonatomic,strong)UIView               *fotterViewForSection;
 @end
 
 @implementation MainViewController
@@ -33,7 +33,12 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:@selector(openOrCloseLeftList)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewDevice)];
     
-    _tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    CGRect rect = self.view.bounds;
+    rect.origin.y += GetStatusBarHeight();
+    rect.origin.y += GetNavigationBarHeight();
+    rect.size.height -= rect.origin.y;
+    
+    _tableView = [[UITableView alloc]initWithFrame:rect style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -42,6 +47,13 @@
     _tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"leftbackimage"]];
     
     [self.view addSubview:_tableView];
+    
+    if(/* DISABLES CODE */ (NO))
+    {
+        //透明navigation bar的方法
+        [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -83,6 +95,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    //here we do not need the inset
+    UIEdgeInsets contentInset = tableView.contentInset;
+    if(contentInset.top + contentInset.bottom != 0)
+    {
+        tableView.contentInset = UIEdgeInsetsZero;
+    }
+    
     //we have one header and two sections
     return 1;
 }
@@ -99,15 +118,15 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if(_headView)
+    if(_headViewForSection)
     {
-        return _headView;
+        return _headViewForSection;
     }
     
     CGRect rectHeader = [_tableView bounds];
     rectHeader.size.height = [self tableView:tableView heightForHeaderInSection:0];
-    _headView = [[UIView alloc] initWithFrame:rectHeader];
-    _headView.backgroundColor = [UIColor clearColor];
+    _headViewForSection = [[UIView alloc] initWithFrame:rectHeader];
+    _headViewForSection.backgroundColor = [UIColor clearColor];
     
     CGRect rectHi = rectHeader;
     rectHi.size.width = 40;
@@ -117,7 +136,7 @@
     
     UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hi"]];
     imgView.frame = rectHi;
-    [_headView addSubview:imgView];
+    [_headViewForSection addSubview:imgView];
     
     CGRect rectWelcome = rectHeader;
     rectWelcome.origin.y = 0;
@@ -127,23 +146,23 @@
     welcomeLabel.textAlignment = NSTextAlignmentLeft;
     welcomeLabel.textColor = [UIColor whiteColor];
     welcomeLabel.font = GetFontWithType(FontTypeUserName);
-    [_headView addSubview:welcomeLabel];
+    [_headViewForSection addSubview:welcomeLabel];
     
     UIButton *btnTap = [UIButton buttonWithType:UIButtonTypeCustom];
     rectHeader.origin.y = 0;
     btnTap.frame = rectHeader;
     btnTap.backgroundColor = [UIColor clearColor];
     [btnTap addTarget:self action:@selector(touchOnUserInfo) forControlEvents:UIControlEventTouchUpInside];
-    [_headView addSubview:btnTap];
+    [_headViewForSection addSubview:btnTap];
     
-    return _headView;
+    return _headViewForSection;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if(_fotterView)
+    if(_fotterViewForSection)
     {
-        return _fotterView;
+        return _fotterViewForSection;
     }
     
     CGRect rectFooter = [_tableView bounds];
@@ -152,8 +171,8 @@
     UIWebView *webView = [[UIWebView alloc]initWithFrame:rectFooter];
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://m.aliyun.com"]]];
     
-    _fotterView = webView;
-    return _fotterView;
+    _fotterViewForSection = webView;
+    return _fotterViewForSection;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

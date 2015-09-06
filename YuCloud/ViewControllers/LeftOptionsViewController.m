@@ -8,6 +8,7 @@
 
 #import "LeftOptionsViewController.h"
 #import "AppDelegate.h"
+#import "DeviceWarningViewController.h"
 
 @interface LeftOptionsViewController () < UITableViewDataSource, UITableViewDelegate >
 
@@ -21,6 +22,7 @@ typedef NS_ENUM(NSInteger, LeftOptionsItems)
 {
     LeftOptionsSettings = 0,
     LeftOptionsMyDevices,
+    LeftOptionsAlertCenter,
     LeftOptionsMyFamily,
     LeftOptionsAbout,
     
@@ -48,7 +50,7 @@ typedef NS_ENUM(NSInteger, LeftOptionsItems)
 
 - (void)initTableData
 {
-    _arrData = [[NSArray alloc]initWithObjects:@"Settings", @"My Devices", @"My Family", @"About", nil];
+    _arrData = [[NSArray alloc]initWithObjects:@"Settings", @"My Devices", @"Alert Center", @"My Family", @"About", nil];
     assert([_arrData count] == LeftOptionsCount);
 }
 
@@ -126,7 +128,17 @@ typedef NS_ENUM(NSInteger, LeftOptionsItems)
     AppDelegate *tempAppDelegate = getAppDelegate();
     [tempAppDelegate.LeftSlideVC closeLeftView];
     
-    UIViewController *vc = [[UIViewController alloc] init];
+    UIViewController *vc = nil;
+    switch (indexPath.row)
+    {
+        case LeftOptionsAlertCenter:
+            vc = [[DeviceWarningViewController alloc] init];
+            break;
+            
+        default:
+            vc = [[UIViewController alloc] init];
+            break;
+    }
     vc.view.backgroundColor = [UIColor whiteColor];
     vc.title = [_arrData objectAtIndex:indexPath.row];
     [tempAppDelegate.mainNavigationController pushViewController:vc animated:NO];

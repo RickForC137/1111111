@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DeviceMenuView.h"
+#import "DeviceControlBar.h"
 
 @interface OneDeviceViewController : UIViewController
 
