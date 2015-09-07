@@ -17,15 +17,36 @@
 
 @end
 
+#define SHOWS_TOUCH_WHEN_HIGHLIGHTED  YES
+
 typedef NS_ENUM(NSInteger, CustomColorType)
 {
     CustomColorTypeBackground = 0,
     CustomColorTypeSep,
     CustomColorTypeBorder,
+    CustomColorTypeTitle,
     
     //add new items before this item
     CustomColorTypeCount
 };
+
+UIColor *getCustomColor(CustomColorType type)
+{
+    switch (type)
+    {
+        case CustomColorTypeBackground:
+            return [UIColor darkGrayColor];
+        case CustomColorTypeSep:
+            return [UIColor lightGrayColor];
+        case CustomColorTypeBorder:
+            return [UIColor lightGrayColor];
+        case CustomColorTypeTitle:
+            return [UIColor whiteColor];
+        case CustomColorTypeCount:
+            break;
+    }
+    return [UIColor redColor];
+}
 
 @implementation MenuItem
 
@@ -119,13 +140,13 @@ typedef NS_ENUM(NSInteger, CustomColorType)
             CGRect rectBtn = item.rect;
             rectBtn = CGRectInset(rectBtn, 2, 2);
             _pushToTalkBtn = [PushToTalkButton buttonWithType:UIButtonTypeCustom];
-            [_pushToTalkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [_pushToTalkBtn setTitleColor:getCustomColor(CustomColorTypeTitle) forState:UIControlStateNormal];
             [_pushToTalkBtn setFrame:rectBtn];
             [_pushToTalkBtn setPushState:PushButtonStateNormal];
             
             _pushToTalkBtn.layer.cornerRadius = 8;
             _pushToTalkBtn.layer.borderWidth = 1;
-            _pushToTalkBtn.layer.borderColor = [[UIColor darkGrayColor] CGColor];
+            _pushToTalkBtn.layer.borderColor = [getCustomColor(CustomColorTypeBorder) CGColor];
             _pushToTalkBtn.layer.masksToBounds = YES;
             
             [_pushToTalkBtn addTarget:self action:@selector(pushToTalkTouchDown)        forControlEvents:UIControlEventTouchDown];
@@ -146,7 +167,8 @@ typedef NS_ENUM(NSInteger, CustomColorType)
             CGRect rectBtn = item.rect;
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setTitle:item.title forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [btn setTitleColor:getCustomColor(CustomColorTypeTitle) forState:UIControlStateNormal];
+            [btn setShowsTouchWhenHighlighted:SHOWS_TOUCH_WHEN_HIGHLIGHTED];
             [btn setFrame:rectBtn];
             
             [btn addTarget:self.delegate action:item.action forControlEvents:UIControlEventTouchUpInside];
@@ -159,7 +181,7 @@ typedef NS_ENUM(NSInteger, CustomColorType)
                 rectLine.origin.x = rectLine.origin.x + rectLine.size.width - 1;
                 rectLine.size.width = 1;
                 UIView *viewLine = [[UIView alloc] initWithFrame:rectLine];
-                viewLine.backgroundColor = [UIColor whiteColor];
+                viewLine.backgroundColor = getCustomColor(CustomColorTypeSep);
                 [self addSubview:viewLine];
             }
         }
@@ -169,11 +191,12 @@ typedef NS_ENUM(NSInteger, CustomColorType)
             rectBtn = CGRectInset(rectBtn, 2, 2);
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setImage:item.image forState:UIControlStateNormal];
+            [btn setShowsTouchWhenHighlighted:SHOWS_TOUCH_WHEN_HIGHLIGHTED];
             btn.frame = rectBtn;
             
             btn.layer.cornerRadius = item.rect.size.width / 2.0;
             btn.layer.borderWidth = 1;
-            btn.layer.borderColor = [[UIColor darkGrayColor] CGColor];
+            btn.layer.borderColor = [getCustomColor(CustomColorTypeBorder) CGColor];
             btn.layer.masksToBounds = YES;
             
             [btn addTarget:self.delegate action:item.action forControlEvents:UIControlEventTouchUpInside];
@@ -222,32 +245,16 @@ typedef NS_ENUM(NSInteger, CustomColorType)
 
 @implementation DeviceControlBar
 
-- (UIColor *)getCustomColor:(CustomColorType)type
-{
-    switch (type)
-    {
-        case CustomColorTypeBackground:
-            return [UIColor lightGrayColor];
-        case CustomColorTypeSep:
-            return [UIColor whiteColor];
-        case CustomColorTypeBorder:
-            return [UIColor darkGrayColor];
-        case CustomColorTypeCount:
-            break;
-    }
-    return [UIColor redColor];
-}
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     
     self.layer.cornerRadius = 8;
     self.layer.borderWidth = 1;
-    self.layer.borderColor = [[self getCustomColor:CustomColorTypeBorder ] CGColor];
+    self.layer.borderColor = [getCustomColor(CustomColorTypeBorder) CGColor];
     self.layer.masksToBounds = YES;
     
-    self.backgroundColor = [self getCustomColor:CustomColorTypeBackground];
+    self.backgroundColor = getCustomColor(CustomColorTypeBackground);
     
     //init the page button
     
@@ -268,12 +275,13 @@ typedef NS_ENUM(NSInteger, CustomColorType)
     rectLine.origin.x = rectLine.origin.x + rectLine.size.width - 1;
     rectLine.size.width = 1;
     UIView *viewLine = [[UIView alloc] initWithFrame:rectLine];
-    viewLine.backgroundColor = [self getCustomColor:CustomColorTypeSep];
+    viewLine.backgroundColor = getCustomColor(CustomColorTypeSep);
     [view addSubview:viewLine];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = rectBtn;
     btn.backgroundColor = [UIColor clearColor];
+    [btn setShowsTouchWhenHighlighted:SHOWS_TOUCH_WHEN_HIGHLIGHTED];
     [btn addTarget:self action:@selector(pageButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:btn];
 }
@@ -285,7 +293,7 @@ typedef NS_ENUM(NSInteger, CustomColorType)
 
 - (void)initFirstPage
 {
-    NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:nil];
+    NSMutableArray *arr = [NSMutableArray array];
     
     MenuItem *item;
     item = [[MenuItem alloc] initWithImage:[UIImage imageNamed:@"call"] action:@selector(onActionCall)];
@@ -308,7 +316,7 @@ typedef NS_ENUM(NSInteger, CustomColorType)
 
 - (void)initSecondPage
 {
-    NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:nil];
+    NSMutableArray *arr = [NSMutableArray array];
     
     MenuItem *item;
     item = [[MenuItem alloc] initWithName:@"互动" action:@selector(onActionInteraction)];
@@ -388,7 +396,7 @@ typedef NS_ENUM(NSInteger, CustomColorType)
     }
 }
 
-- (void)initDeviceMenu
+- (void)initDeviceControl
 {
     CGRect rectMain = self.bounds;
     CGRect rectIcon = rectMain;

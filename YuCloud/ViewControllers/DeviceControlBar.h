@@ -10,7 +10,7 @@
 #import "CommPros.h"
 #import "PushToTalkButton.h"
 
-@protocol DeviceMenuDelegate < NSObject >
+@protocol DeviceControlDelegate < NSObject >
 
 - (void)onActionInteraction;
 - (void)onActionActivity;
@@ -46,8 +46,8 @@
 //the main view
 @interface DeviceControlBar : UIView
 
-@property (nonatomic, assign)       id <DeviceMenuDelegate>     delegate;
+@property (nonatomic, assign)       id <DeviceControlDelegate>     delegate;
 
 
-- (void)initDeviceMenu;
+- (void)initDeviceControl;
 @end

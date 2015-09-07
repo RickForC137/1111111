@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MAMapKit/MAMapKit.h"
 
 @interface DeviceInfoBar : UIView
+
+@property(nonatomic, strong) NSString               *timeString;
+@property(nonatomic, assign) CLLocationCoordinate2D location;
+@property(nonatomic, strong) NSString               *infoString;
 
 @end

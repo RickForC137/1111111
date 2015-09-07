@@ -8,14 +8,66 @@
 
 #import "DeviceInfoBar.h"
 
+@interface DeviceInfoBar()
+
+@property(nonatomic, strong)UILabel         *timeLabel;
+@property(nonatomic, strong)UILabel         *locationLabel;
+@property(nonatomic, strong)UILabel         *infoLabel;
+
+@end
+
 @implementation DeviceInfoBar
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    
+    self.layer.cornerRadius = 8;
+    self.layer.borderWidth = 0;
+    self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.layer.masksToBounds = YES;
+    
+    self.backgroundColor = [UIColor lightGrayColor];
+    
+    CGRect rectMain = self.bounds;
+    rectMain = CGRectInset(rectMain, 4, 2);
+    NSUInteger height = rectMain.size.height / 3.0;
+    
+    CGRect rect = rectMain;
+    rect.size.height = height;
+    _timeLabel = [[UILabel alloc] initWithFrame:rect];
+    _timeLabel.text = _timeString;
+    _timeLabel.textColor = [UIColor whiteColor];
+    [self addSubview:_timeLabel];
+    
+    rect.origin.y += height;
+    _locationLabel = [[UILabel alloc] initWithFrame:rect];
+    _locationLabel.text = @"location adsfadsfasdf";
+    _locationLabel.textColor = [UIColor whiteColor];
+    [self addSubview:_locationLabel];
+    
+    rect.origin.y += height;
+    _infoLabel = [[UILabel alloc] initWithFrame:rect];
+    _infoLabel.text = _infoString;
+    _infoLabel.textColor = [UIColor whiteColor];
+    [self addSubview:_infoLabel];
+    
+    return self;
 }
-*/
+
+- (void)setTimeString:(NSString *)timeString
+{
+    _timeLabel.text = timeString;
+}
+
+- (void)setLocation:(CLLocationCoordinate2D)location
+{
+    
+}
+
+- (void)setInfoString:(NSString *)infoString
+{
+    _infoLabel.text = infoString;
+}
 
 @end

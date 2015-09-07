@@ -10,20 +10,30 @@
 #import "AppDelegate.h"
 #import "MAMapKit/MAMapKit.h"
 #import "DeviceControlBar.h"
+#import "DeviceInfoBar.h"
 #import "DeviceInteractionViewController.h"
 #import "DeviceActivityViewController.h"
 #import "DeviceSettingsViewController.h"
 #import "RouteViewController.h"
+#import "YuMapView.h"
+#import "YuMapAnnotationView.h"
 
-@interface OneDeviceViewController () < MAMapViewDelegate, DeviceMenuDelegate >
+@interface OneDeviceViewController () < MAMapViewDelegate, DeviceControlDelegate >
 
 
-@property(nonatomic,strong)MAMapView            *mapView;
-@property(nonatomic,strong)MAUserLocation       *currPosition;
+@property(nonatomic,strong)YuMapView                *mapView;
+@property(nonatomic,assign)CLLocationCoordinate2D   deviceLocation;
+@property(nonatomic,assign)CLLocationCoordinate2D   userLocation;
+@property(nonatomic,strong)UIButton                 *btnCompass;
+@property(nonatomic,strong)DeviceControlBar         *deviceControlBar;
+@property(nonatomic,strong)DeviceInfoBar            *deviceInfoBar;
+
 @end
 
 
-#define DEVICE_VIEW_DEVICE_MENU_HEIGHT  46
+#define DEVICE_VIEW_DEVICE_MENU_HEIGHT  50
+#define DEVICE_VIEW_DEVICE_INFO_HEIGHT  80
+
 @implementation OneDeviceViewController
 
 - (void)viewDidLoad
@@ -48,45 +58,59 @@
     rectMap.origin.y += GetNavigationBarHeight();
     rectMap.size.height -= GetNavigationBarHeight();
     
-    _mapView = [[MAMapView alloc] initWithFrame:rectMap];
+    _mapView = [[YuMapView alloc] initWithFrame:rectMap];
     [self.view addSubview:_mapView];
     
     [_mapView setDelegate:self];
-    [_mapView setShowsUserLocation:NO];
+    [_mapView setShowsUserLocation:YES];
     [_mapView setShowsCompass:NO];
     [_mapView setShowsScale:NO];
     
     //here we do not follow user's position
     [_mapView setUserTrackingMode:MAUserTrackingModeNone animated:NO];
     
-    NSUInteger compassSize = 20;
-    CGRect rectCompass = rectMap;
-    rectCompass.origin.x = 8;
-    rectCompass.origin.y = rectCompass.origin.y + rectCompass.size.height - DEVICE_VIEW_DEVICE_MENU_HEIGHT;
-    rectCompass.origin.y -= compassSize;
-    rectCompass.size.width = compassSize;
-    rectCompass.size.height = compassSize;
-    
-    UIButton *btnCompass = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnCompass.frame = rectCompass;
-    [btnCompass setBackgroundImage:[UIImage imageNamed:@"compass"] forState:UIControlStateNormal];
-    [btnCompass addTarget:self action:@selector(LocateCurrentPos) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btnCompass];
+    [self showDeviceLocationButton:rectMap show:YES];
     
     //here we create a menu like wechat app
     CGRect rectMenu = self.view.bounds;
     rectMenu.origin.y = rectMenu.size.height - DEVICE_VIEW_DEVICE_MENU_HEIGHT;
     rectMenu.size.height = DEVICE_VIEW_DEVICE_MENU_HEIGHT;
     rectMenu = CGRectInset(rectMenu, 4, 4);
-    DeviceControlBar *deviceMenu = [[DeviceControlBar alloc] initWithFrame:rectMenu];
-    deviceMenu.delegate = self;
+    _deviceControlBar = [[DeviceControlBar alloc] initWithFrame:rectMenu];
+    _deviceControlBar.delegate = self;
+    
+    //here is the main init entry
+    [_deviceControlBar initDeviceControl];
+    [self.view addSubview:_deviceControlBar];
     
     //setting default rect need to be delayed, according to AMAP
     [self performSelector:@selector(delaySetDefaultRect) withObject:nil afterDelay:0.01];
     
-    //here is the main init entry
-    [deviceMenu initDeviceMenu];
-    [self.view addSubview:deviceMenu];
+    //here set a temp value to device location
+    _deviceLocation = CLLocationCoordinate2DMake(31.943286204632525, 118.80706220203611);
+}
+
+- (void)showDeviceLocationButton:(CGRect)rectMap show:(BOOL)show
+{
+    NSUInteger compassSize = 36, offset = 20;
+    CGRect rectCompass = rectMap;
+    rectCompass.origin.x = rectCompass.size.width - offset - compassSize;
+    rectCompass.origin.y = rectCompass.origin.y + offset;
+    rectCompass.size.width = compassSize;
+    rectCompass.size.height = compassSize;
+    
+    _btnCompass = [UIButton buttonWithType:UIButtonTypeCustom];
+    _btnCompass.frame = rectCompass;
+    [_btnCompass setBackgroundImage:[UIImage imageNamed:@"location"] forState:UIControlStateNormal];
+    [_btnCompass setShowsTouchWhenHighlighted:YES];
+    [_btnCompass addTarget:self action:@selector(locateDevice) forControlEvents:UIControlEventTouchUpInside];
+    
+    _btnCompass.layer.cornerRadius = compassSize / 2.0;
+    _btnCompass.layer.borderWidth = 1;
+    _btnCompass.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    _btnCompass.layer.masksToBounds = YES;
+    
+    [self.view addSubview:_btnCompass];
 }
 
 - (void)delaySetDefaultRect
@@ -103,23 +127,43 @@
 
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
 {
-    if(_currPosition == nil)
+    if(_userLocation.latitude == 0 && _userLocation.longitude == 0)
     {
-        //first time location
-        [self LocateCurrentPos];
-        _currPosition = userLocation;
+        //first time set the device centered
+        _userLocation = userLocation.coordinate;
+        
+        MACoordinateRegion region = mapView.region;
+        region.center = _userLocation;
+        region.span.latitudeDelta = 0.03;
+        region.span.longitudeDelta = 0.03;
+        
+        [mapView setRegion:region animated:YES];
     }
+    
+    //这行用来模拟设备位置更新
+    [self deviceLocationDidUpdate:userLocation.coordinate];
 }
 
-- (void)LocateCurrentPos
+- (void)deviceLocationDidUpdate:(CLLocationCoordinate2D)location
+{
+    _deviceLocation = location;
+    [_mapView setCurrentLocation:location];
+}
+
+- (void)locateDevice
 {
     MACoordinateRegion region = _mapView.region;
-    region.center = CLLocationCoordinate2DMake(31.924868258470688, 118.81126655232617);     //device position
+    if(region.span.latitudeDelta > 1.0 || region.span.longitudeDelta > 1.0)
+    {
+        region.center = _deviceLocation;
+        region.span.latitudeDelta = 0.03;
+        region.span.longitudeDelta = 0.03;
+        
+        [_mapView setRegion:region animated:YES];
+    }
     
-    region.span.latitudeDelta = 0.03;
-    region.span.longitudeDelta = 0.03;
-    
-    [_mapView setRegion:region animated:YES];
+    [_mapView setCurrentLocation:_deviceLocation];
+    [_mapView selectAnnotation:_mapView.deviceAnnot animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -183,14 +227,88 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[MAPointAnnotation class]])
+    {
+        static NSString *customReuseIndetifier = @"customReuseIndetifier";
+        
+        YuMapAnnotationView *annotationView = (YuMapAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:customReuseIndetifier];
+        
+        if (annotationView == nil)
+        {
+            annotationView = [[YuMapAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:customReuseIndetifier];
+            // must set to NO, so we can show the custom callout view.
+            annotationView.canShowCallout = NO;
+            annotationView.draggable = YES;
+            annotationView.calloutOffset = CGPointMake(0, -5);
+        }
+        
+        annotationView.calloutEnabled = NO;
+        annotationView.portrait = [UIImage imageNamed:@"baby"];
+        
+        return annotationView;
+    }
+    
+    return nil;
 }
-*/
+
+- (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
+{
+    //点选annotation之后，将其居中，并且拉近
+    if([view isKindOfClass:[YuMapAnnotationView class]])
+    {
+        YuMapAnnotationView *annot = (YuMapAnnotationView *)view;
+        MACoordinateRegion region = mapView.region;
+        region.center = annot.annotation.coordinate;
+        if(region.span.latitudeDelta > 1.0 || region.span.longitudeDelta > 1.0)
+        {
+            region.span.latitudeDelta = 0.03;
+            region.span.longitudeDelta = 0.03;
+        }
+        
+        [mapView setRegion:region animated:YES];
+    }
+    
+    [self showDeviceInfoBar:YES];
+}
+
+- (void)mapView:(MAMapView *)mapView didDeselectAnnotationView:(MAAnnotationView *)view
+{
+    [self showDeviceInfoBar:NO];
+}
+
+- (void)showDeviceInfoBar:(BOOL)show
+{
+    if(_deviceInfoBar == nil)
+    {
+        CGRect rectInfo = self.view.bounds;
+        rectInfo.origin.y = rectInfo.size.height - DEVICE_VIEW_DEVICE_MENU_HEIGHT;
+        rectInfo.origin.y -= DEVICE_VIEW_DEVICE_INFO_HEIGHT;
+        
+        rectInfo.size.height = DEVICE_VIEW_DEVICE_INFO_HEIGHT;
+        rectInfo = CGRectInset(rectInfo, 4, 4);
+        
+        _deviceInfoBar = [[DeviceInfoBar alloc] initWithFrame:rectInfo];
+        _deviceInfoBar.backgroundColor = [UIColor lightGrayColor];
+        _deviceInfoBar.alpha = 0.f;
+        [self.view addSubview:_deviceInfoBar];
+    }
+    
+    _deviceInfoBar.timeString = @"20分钟前设备在：";
+    _deviceInfoBar.location = _deviceLocation;
+    _deviceInfoBar.infoString = @"本次定位采用GPS定位，精度小于50米";
+    
+    CGFloat alpha = show? 1.f : 0.f;
+    
+    [UIView animateWithDuration:0.2f animations:^{
+            _deviceInfoBar.alpha = alpha;
+    }completion:^(BOOL finished){
+    }];
+}
 
 @end
+
+
+
+

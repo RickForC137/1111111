@@ -15,9 +15,11 @@
 
 @interface MainViewController () < UITableViewDataSource, UITableViewDelegate >
 
-@property(nonatomic,strong)UITableView          *tableView;
-@property(nonatomic,strong)UIView               *headViewForSection;
-@property(nonatomic,strong)UIView               *fotterViewForSection;
+@property(nonatomic,strong)UITableView              *tableView;
+@property(nonatomic,strong)UIView                   *headViewForSection;
+@property(nonatomic,strong)UIView                   *fotterViewForSection;
+@property(nonatomic,strong)UIView                   *tableHeader;
+@property(nonatomic,strong)UIActivityIndicatorView  *refreshIndicator;
 @end
 
 @implementation MainViewController
@@ -47,6 +49,12 @@
     _tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"leftbackimage"]];
     
     [self.view addSubview:_tableView];
+    
+    rect = _tableView.bounds;
+    rect.size.height = 40;
+    _tableHeader = [[UIView alloc] initWithFrame:rect];
+    _tableHeader.backgroundColor = [UIColor clearColor];
+    _tableView.tableHeaderView = _tableHeader;
     
     if(/* DISABLES CODE */ (NO))
     {
@@ -108,7 +116,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -169,7 +177,7 @@
     rectFooter.size.height = [self tableView:_tableView heightForFooterInSection:0];
     
     UIWebView *webView = [[UIWebView alloc]initWithFrame:rectFooter];
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://m.aliyun.com"]]];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://login.weibo.cn"]]];
     
     _fotterViewForSection = webView;
     return _fotterViewForSection;
@@ -196,7 +204,7 @@
         else
         {
             cell.imageMain.image = [UIImage imageNamed:@"device-watch"];
-            cell.labelMain.text = [NSString stringWithFormat:@"Device %ld", (long)indexPath.row];
+            cell.labelMain.text = @"虚拟体验设备";
             
             //here set the device data to the cell
             cell.deviceData = nil;
@@ -246,6 +254,74 @@
     {
         [self ViewForOneDeviceEntry];
     }
+}
+
+typedef NS_ENUM(NSInteger, RefreshStatus)
+{
+    RefreshStatusNormal = 0,
+    RefreshStatusDraging,
+    RefreshStatusRefreshing,
+    
+    //add new items before this item
+    RefreshStatusCount
+};
+
+RefreshStatus refreshStatus = RefreshStatusNormal;
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if(refreshStatus == RefreshStatusNormal)
+    {
+        refreshStatus = RefreshStatusDraging;
+        if(_refreshIndicator == nil)
+        {
+            _refreshIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+            _refreshIndicator.hidesWhenStopped = NO;
+            _refreshIndicator.center = _tableHeader.center;
+            [_tableHeader addSubview:_refreshIndicator];
+        }
+        
+        //initially, this is not animating
+        _refreshIndicator.hidden = NO;
+        _refreshIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        [_refreshIndicator stopAnimating];
+    }
+    else if(refreshStatus == RefreshStatusRefreshing)
+    {
+        //this for temp showing
+        [self endRefreshingIndicator];
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if(refreshStatus == RefreshStatusDraging && fabs(scrollView.contentOffset.y) > _tableHeader.frame.size.height)
+    {
+        _refreshIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+        [_refreshIndicator startAnimating];
+        refreshStatus = RefreshStatusRefreshing;
+        
+        [self startRefreshing];
+    }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    if(refreshStatus != RefreshStatusRefreshing)
+    {
+        [self endRefreshingIndicator];
+    }
+}
+
+- (void)startRefreshing
+{
+    
+}
+
+- (void)endRefreshingIndicator
+{
+    refreshStatus = RefreshStatusNormal;
+    [_refreshIndicator stopAnimating];
+    _refreshIndicator.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning

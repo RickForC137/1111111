@@ -31,7 +31,7 @@
             break;
     }
     
-    self.titleLabel.font = GetFontWithType(FontTypeDeviceMenuLabel);
+    self.titleLabel.font = GetFontWithType(FontTypeDeviceControlLabel);
     [self setTitle:strTitle forState:UIControlStateNormal];
 }
 

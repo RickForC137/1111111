@@ -35,7 +35,7 @@ UIFont *GetFontWithType(FontType type)
             return [UIFont fontWithName:@"Helvetica" size:20.f];
         case FontTypeDeviceCellLabel:
             return [UIFont fontWithName:@"Helvetica" size:20.f];
-            case FontTypeDeviceMenuLabel:
+            case FontTypeDeviceControlLabel:
             return [UIFont fontWithName:@"Helvetica" size:20.f];
         case FontTypeCount:
             break;

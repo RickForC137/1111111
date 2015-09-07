@@ -18,6 +18,7 @@
 {
     [super viewDidLoad];
     
+    self.title = @"运动";
     self.view.backgroundColor = [UIColor whiteColor];
 }
 

@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "DeviceControlBar.h"
+#import "DeviceInfoBar.h"
 
 @interface OneDeviceViewController : UIViewController
+
 
 @end

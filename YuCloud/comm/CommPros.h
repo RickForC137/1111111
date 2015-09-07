@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, FontType)
     FontTypeOptionsCell = 0,
     FontTypeUserName,
     FontTypeDeviceCellLabel,
-    FontTypeDeviceMenuLabel,
+    FontTypeDeviceControlLabel,
     
     //add new items before this item
     FontTypeCount
