@@ -13,6 +13,7 @@
 #import "LeftSlideViewController.h"
 #import "DeviceDataObject.h"
 
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
