@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "DeviceWarningViewController.h"
 #import "YuAccountManager.h"
+#import "UIImageView+WebCache.h"
 
 @interface LeftOptionsViewController () < UITableViewDataSource, UITableViewDelegate >
 
@@ -85,7 +86,9 @@ typedef NS_ENUM(NSInteger, LeftOptionsItems)
     rectImg.origin.x = (rectHeader.size.width - TABLE_VIEW_HEADER_IMAGE_SIZE) / 2.0;
     rectImg.origin.y += (rectHeader.size.height - TABLE_VIEW_HEADER_IMAGE_SIZE) / 2.0 - 20;
     UIImageView *imgView = [[UIImageView alloc]initWithFrame:rectImg];
-    imgView.image = [UIImage imageNamed:@"head"];
+    
+    [imgView sd_setImageWithURL:[NSURL URLWithString:info.avatar_image] placeholderImage:[UIImage imageNamed:@"head"]];
+    
     imgView.layer.cornerRadius = TABLE_VIEW_HEADER_IMAGE_SIZE / 2.0;
     imgView.layer.borderWidth = 1;
     imgView.layer.borderColor = [[UIColor grayColor] CGColor];

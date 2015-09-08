@@ -51,7 +51,7 @@
 
 - (void)startLogin:(NSString *)name pass:(nullable NSString *)pass token:(nullable NSString *)token block:(nonnull void (^)(BOOL))block
 {
-    [[YuCloudInterface sharedClient] GET:@"/users/@guofengtd/" parameters:nil
+    [[YuCloudInterface sharedClient] GET:@"/users/11111/" parameters:nil
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
         [self setCurrentAccountInfo:dic];
