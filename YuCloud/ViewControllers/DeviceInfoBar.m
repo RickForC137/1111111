@@ -23,11 +23,11 @@
     self = [super initWithFrame:frame];
     
     self.layer.cornerRadius = 8;
-    self.layer.borderWidth = 0;
+    self.layer.borderWidth = 1;
     self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     self.layer.masksToBounds = YES;
     
-    self.backgroundColor = [UIColor lightGrayColor];
+    self.backgroundColor = [UIColor darkGrayColor];
     
     CGRect rectMain = self.bounds;
     rectMain = CGRectInset(rectMain, 4, 2);

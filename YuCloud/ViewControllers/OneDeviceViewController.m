@@ -290,7 +290,6 @@
         rectInfo = CGRectInset(rectInfo, 4, 4);
         
         _deviceInfoBar = [[DeviceInfoBar alloc] initWithFrame:rectInfo];
-        _deviceInfoBar.backgroundColor = [UIColor lightGrayColor];
         _deviceInfoBar.alpha = 0.f;
         [self.view addSubview:_deviceInfoBar];
     }
