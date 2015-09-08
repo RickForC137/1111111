@@ -9,6 +9,7 @@
 #import "LeftOptionsViewController.h"
 #import "AppDelegate.h"
 #import "DeviceWarningViewController.h"
+#import "YuAccountManager.h"
 
 @interface LeftOptionsViewController () < UITableViewDataSource, UITableViewDelegate >
 
@@ -48,6 +49,11 @@ typedef NS_ENUM(NSInteger, LeftOptionsItems)
     [self initTableData];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
 - (void)initTableData
 {
     _arrData = [[NSArray alloc]initWithObjects:@"Settings", @"My Devices", @"Alert Center", @"My Family", @"About", nil];
@@ -72,6 +78,8 @@ typedef NS_ENUM(NSInteger, LeftOptionsItems)
     rectHeader.size.height -= 40;
     CGRect rectImg = rectHeader;
     
+    AccountInfo *info = [YuAccountManager manager].accountInfo;
+    
     rectImg.size.height = TABLE_VIEW_HEADER_IMAGE_SIZE;
     rectImg.size.width = TABLE_VIEW_HEADER_IMAGE_SIZE;
     rectImg.origin.x = (rectHeader.size.width - TABLE_VIEW_HEADER_IMAGE_SIZE) / 2.0;
@@ -88,7 +96,14 @@ typedef NS_ENUM(NSInteger, LeftOptionsItems)
     rectName.origin.y = rectImg.origin.y + rectImg.size.height;
     rectName.size.height = rectHeader.size.height - rectImg.size.height;
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:rectName];
-    nameLabel.text = @"Xiong Guofeng";
+    if([info.name length] > 0)
+    {
+        nameLabel.text = info.name;
+    }
+    else
+    {
+        nameLabel.text = @"未登录";
+    }
     nameLabel.textAlignment = NSTextAlignmentCenter;
     nameLabel.textColor = [UIColor whiteColor];
     nameLabel.font = GetFontWithType(FontTypeOptionsCell);

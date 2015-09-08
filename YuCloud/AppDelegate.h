@@ -12,6 +12,7 @@
 #import "MainViewController.h"
 #import "LeftSlideViewController.h"
 #import "DeviceDataObject.h"
+#import "YuAccountManager.h"
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
@@ -30,6 +31,7 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
+- (void)updateLastAccount:(AccountInfo *)account;
 
 - (void)showLogin:(BOOL)animated;
 - (void)showSignup:(BOOL)animated;

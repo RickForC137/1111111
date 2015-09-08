@@ -10,6 +10,6 @@
 
 @implementation RunInfo
 
-@dynamic first_run, last_account, last_time;
+@dynamic first_run, account, token;
 
 @end

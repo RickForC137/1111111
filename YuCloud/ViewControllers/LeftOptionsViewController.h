@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YuAccountManager.h"
 
 @interface LeftOptionsViewController : UIViewController
+
+@property(nonatomic, strong) YuAccountManager       *accountInfo;
 
 @end

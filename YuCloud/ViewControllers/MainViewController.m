@@ -12,6 +12,7 @@
 #import "OneDeviceViewController.h"
 #import "CommPros.h"
 #import "DeviceTableViewCell.h"
+#import "YuAccountManager.h"
 
 @interface MainViewController () < UITableViewDataSource, UITableViewDelegate >
 
@@ -69,12 +70,6 @@
     [super viewDidAppear:animated];
     
     [_tableView reloadData];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    
 }
 
 - (void)openOrCloseLeftList
@@ -217,8 +212,12 @@
 
 - (void)touchOnUserInfo
 {
-    AppDelegate *tempAppDelegate = getAppDelegate();
-    [tempAppDelegate showLogin:YES];
+    AccountInfo *info = [YuAccountManager manager].accountInfo;
+    if([info.userid length] == 0)
+    {
+        AppDelegate *tempAppDelegate = getAppDelegate();
+        [tempAppDelegate showLogin:YES];
+    }
 }
 
 - (void)addNewDevice

@@ -25,9 +25,10 @@ typedef NS_ENUM(NSInteger, FontType)
     FontTypeCount
 };
 
-double GetMinSizeWithFixedRatio(double w1, double h1, double w2, double h2);
+double  GetMinSizeWithFixedRatio(double w1, double h1, double w2, double h2);
 CGFloat GetStatusBarHeight();
 CGFloat GetNavigationBarHeight();
-UIFont *GetFontWithType(FontType type);
+UIFont  *GetFontWithType(FontType type);
+NSString *GetStringMD5(NSString *string);
 
 #endif /* defined(__YuCloud__CommPros__) */

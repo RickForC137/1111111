@@ -11,8 +11,8 @@
 @interface RunInfo : NSManagedObject
 
 @property (nonatomic, assign) Boolean       first_run;
-@property (nonatomic, strong) NSString      *last_account;
-@property (nonatomic, strong) NSDate        *last_time;
+@property (nonatomic, strong) NSString      *account;
+@property (nonatomic, strong) NSString      *token;
 
 @end
 

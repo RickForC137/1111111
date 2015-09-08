@@ -10,14 +10,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface AccountInfo : NSObject
+
+@property(nonatomic, strong) NSString           *userid;
+@property(nonatomic, strong) NSString           *name;
+@property(nonatomic, strong) NSDate             *signup_date;
+@property(nonatomic, strong) NSString           *avatar_image;
+@property(nonatomic, strong) NSString           *access_token;
+@end
+
 @interface YuAccountManager : NSObject
 
-@property(nonatomic, strong)NSString            *ipAddress;
 + (nullable instancetype)manager;
 
-- (nullable instancetype)initWithServerIP:(nullable NSString *)ip NS_DESIGNATED_INITIALIZER;
+@property(nonatomic, strong, readonly) AccountInfo         *accountInfo;
 
-- (void)startLogin;
+- (void)startLogin:(NSString *)name pass:(nullable NSString *)pass token:(nullable NSString *)token block:(void (^)(BOOL success))block;
+- (void)startLogout;
+
 
 @end
 

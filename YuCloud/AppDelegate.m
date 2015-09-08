@@ -14,6 +14,7 @@
 #import "SignupViewController.h"
 #import "RunInfo.h"
 
+
 @interface AppDelegate ()
 
 @end
@@ -42,7 +43,10 @@ AppDelegate *getAppDelegate()
     self.window.rootViewController = self.LeftSlideVC;
     
     //here signup and login
-    //[self showLogin:NO];
+    if([self startAutoLogin] == NO)
+    {
+        [self showLogin:NO];
+    }
     
     //top most is the welcome screen
     if([self isFirstRun])
@@ -50,7 +54,6 @@ AppDelegate *getAppDelegate()
         [self showWelcome:NO];
     }
     [self changeFirstRun:NO];
-    [self changeLastAccount:@"xiongguofeng"];
     
     [[UINavigationBar appearance] setBarTintColor:[UIColor purpleColor]];
     return YES;
@@ -79,12 +82,11 @@ AppDelegate *getAppDelegate()
         item = (RunInfo *)[NSEntityDescription insertNewObjectForEntityForName:@"RunInfo" inManagedObjectContext:self.managedObjectContext];
     }
     [item setValue:[NSNumber numberWithBool:first] forKey:@"first_run"];
-    [item setValue:[NSDate date] forKey:@"last_time"];
     
     [self saveContext];
 }
 
-- (void)changeLastAccount:(NSString *)account
+- (void)updateLastAccount:(AccountInfo *)account
 {
     RunInfo *item = nil;
     if([[self.fetchedResultsController fetchedObjects] count])
@@ -95,10 +97,45 @@ AppDelegate *getAppDelegate()
     {
         item = (RunInfo *)[NSEntityDescription insertNewObjectForEntityForName:@"RunInfo" inManagedObjectContext:self.managedObjectContext];
     }
-    [item setValue:account forKey:@"last_account"];
-    [item setValue:[NSDate date] forKey:@"last_time"];
+    [item setValue:account.userid forKey:@"account"];
+    [item setValue:account.access_token forKey:@"token"];
     
     [self saveContext];
+}
+
+- (BOOL)startAutoLogin
+{
+    RunInfo *item = nil;
+    BOOL autoLogin = NO;
+    NSString *token = nil;
+    NSString *userid = nil;
+    if([[self.fetchedResultsController fetchedObjects] count])
+    {
+        item = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        userid = [item valueForKey:@"account"];
+        token = [item valueForKey:@"token"];
+        if([userid length] > 0 && [token length] > 0)
+        {
+            autoLogin = YES;
+        }
+    }
+    
+    if(autoLogin)
+    {
+        YuAccountManager *manager = [YuAccountManager manager];
+        [manager startLogin:userid pass:nil token:token block:^(BOOL success) {
+            if(success)
+            {
+            }
+            else
+            {
+                //自动登录失败，弹出登录界面
+                [self showLogin:NO];
+            }
+        }];
+    }
+    
+    return autoLogin;
 }
 
 - (void)showLogin:(BOOL)animated

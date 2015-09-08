@@ -241,6 +241,8 @@
     
     [UIView commitAnimations];
     [self disableTapButton];
+    
+    [self.leftTableview reloadData];
 }
 
 #pragma mark - 行为收敛控制

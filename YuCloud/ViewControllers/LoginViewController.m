@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "AppDelegate.h"
 #import "YuAccountManager.h"
+#import "MBProgressHUD.h"
 
 @interface LoginViewController ()
 
@@ -47,8 +48,27 @@
 
 - (IBAction)LoginButtonPressed:(id)sender
 {
-    YuAccountManager *manager = [[YuAccountManager manager] initWithServerIP:@"192.168.1.1"];
-    [manager startLogin];
+    id hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hud setLabelText:@"Login"];
+    
+    YuAccountManager *manager = [YuAccountManager manager];
+    [manager startLogin:[_userNumber text] pass:[_userPassword text] token:nil block:^(BOOL success) {
+        if(success)
+        {
+            [hud setMode:MBProgressHUDModeCustomView];
+            [hud setLabelText:@"Login Success"];
+            [hud hide:YES afterDelay:3];
+            [hud setCompletionBlock:^{
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }];
+        }
+        else
+        {
+            [hud setMode:MBProgressHUDModeCustomView];
+            [hud setLabelText:@"Login Failed"];
+            [hud hide:YES afterDelay:3];
+        }
+    }];
 }
 
 - (void)checkInputContent

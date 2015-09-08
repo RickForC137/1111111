@@ -6,11 +6,12 @@
     },
     {
       "idiom" : "iphone",
-      "scale" : "2x",
-      "filename" : "IMG_0012.png"
+      "filename" : "ic_person_2x.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "iphone",
+      "filename" : "ic_person_3x.png",
       "scale" : "3x"
     }
   ],

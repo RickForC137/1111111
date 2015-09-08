@@ -44,4 +44,7 @@ UIFont *GetFontWithType(FontType type)
     return nil;
 }
 
-
+NSString *GetStringMD5(NSString *string)
+{
+    return string;
+}

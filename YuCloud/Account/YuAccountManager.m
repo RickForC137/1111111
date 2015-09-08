@@ -7,40 +7,72 @@
 //
 
 #import "YuAccountManager.h"
+#import "AFNetworking.h"
+#import "CommPros.h"
+#import "YuCloudInterface.h"
+#import "AppDelegate.h"
+
+
+@interface YuAccountManager()
+
+
+@end
+
+@implementation AccountInfo
+
+@end
 
 @implementation YuAccountManager
 
 + (instancetype)manager
 {
-    return [[self alloc] initWithServerIP:@"192.168.1.1"];
-}
-
-- (instancetype)init
-{
-    self = [self initWithServerIP:nil];
+    static YuAccountManager *_sharedClient = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedClient = [[YuAccountManager alloc] init];
+    });
     
-    return self;
+    return _sharedClient;
 }
 
-- (instancetype)initWithServerIP:(NSString *)ip
+- (void)setCurrentAccountInfo:(NSDictionary *)info
 {
-    self = [super init];
+    if(_accountInfo == nil)
+    {
+        _accountInfo = [[AccountInfo alloc] init];
+    }
     
-    [self setIpAddress:ip];
-    
-    return self;
+    _accountInfo.userid = [info objectForKey:@"id"];
+    _accountInfo.name = [info objectForKey:@"username"];
+    _accountInfo.signup_date = [info objectForKey:@"created_at"];
+    _accountInfo.avatar_image = [[info objectForKey:@"avatar_image"] objectForKey:@"url"];
+    _accountInfo.access_token = @"ALAKSDJFLKASFJLKALKSDFJ";
 }
 
-- (void)setIpAddress:(NSString *)ipAddress
+- (void)startLogin:(NSString *)name pass:(nullable NSString *)pass token:(nullable NSString *)token block:(nonnull void (^)(BOOL))block
 {
-    _ipAddress = ipAddress;
-}
-
-- (void)startLogin
-{
+    [[YuCloudInterface sharedClient] GET:@"/users/@guofengtd/" parameters:nil
+      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+        NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
+        [self setCurrentAccountInfo:dic];
+        [getAppDelegate() updateLastAccount:_accountInfo];
+        if(block)
+        {
+            block(YES);
+        }
+    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+        if(block)
+        {
+            block(NO);
+        }
+    }];
     
 }
 
+- (void)startLogout
+{
+    
+}
 
 @end
 

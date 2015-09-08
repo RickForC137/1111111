@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03109CFE1B9EB3970049B558 /* YuCloudInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 03109CFD1B9EB3970049B558 /* YuCloudInterface.m */; settings = {ASSET_TAGS = (); }; };
 		0311DBAF1B8C477D009555D2 /* QRScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0311DBAE1B8C477D009555D2 /* QRScanViewController.m */; };
 		0311DBB21B8C47D6009555D2 /* QRView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0311DBB11B8C47D6009555D2 /* QRView.m */; };
 		032A58A61B8AA1CE008A1EAE /* AddNewDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032A58A51B8AA1CE008A1EAE /* AddNewDeviceViewController.m */; };
@@ -18,7 +19,6 @@
 		032E7ED51B9449CD00C9F845 /* DeviceInteractionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032E7ED41B9449CD00C9F845 /* DeviceInteractionViewController.m */; };
 		032E7ED81B9449E400C9F845 /* DeviceWarningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032E7ED71B9449E400C9F845 /* DeviceWarningViewController.m */; };
 		032E7EDB1B9449FD00C9F845 /* DeviceSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032E7EDA1B9449FD00C9F845 /* DeviceSettingsViewController.m */; };
-		0348143D1B8D8E7500B4B364 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 0348143C1B8D8E7500B4B364 /* Account.m */; };
 		034814401B8D90DE00B4B364 /* RunInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0348143F1B8D90DE00B4B364 /* RunInfo.m */; };
 		034E42D51B9E7E1A00A3C1B8 /* YuAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 034E42D41B9E7E1A00A3C1B8 /* YuAccountManager.m */; settings = {ASSET_TAGS = (); }; };
 		0384DC921B958823009582DB /* PushToTalkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0384DC911B958823009582DB /* PushToTalkButton.m */; };
@@ -61,6 +61,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03109CFC1B9EB3970049B558 /* YuCloudInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YuCloudInterface.h; path = "YuCloud/Net Interface/YuCloudInterface.h"; sourceTree = "<group>"; };
+		03109CFD1B9EB3970049B558 /* YuCloudInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YuCloudInterface.m; path = "YuCloud/Net Interface/YuCloudInterface.m"; sourceTree = "<group>"; };
 		0311DBAD1B8C477D009555D2 /* QRScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QRScanViewController.h; path = YuCloud/ViewControllers/QRScanViewController.h; sourceTree = "<group>"; };
 		0311DBAE1B8C477D009555D2 /* QRScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QRScanViewController.m; path = YuCloud/ViewControllers/QRScanViewController.m; sourceTree = "<group>"; };
 		0311DBB01B8C47D6009555D2 /* QRView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QRView.h; path = YuCloud/ViewControllers/QRView.h; sourceTree = "<group>"; };
@@ -83,8 +85,6 @@
 		032E7ED71B9449E400C9F845 /* DeviceWarningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceWarningViewController.m; path = YuCloud/ViewControllers/DeviceWarningViewController.m; sourceTree = "<group>"; };
 		032E7ED91B9449FD00C9F845 /* DeviceSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceSettingsViewController.h; path = YuCloud/ViewControllers/DeviceSettingsViewController.h; sourceTree = "<group>"; };
 		032E7EDA1B9449FD00C9F845 /* DeviceSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceSettingsViewController.m; path = YuCloud/ViewControllers/DeviceSettingsViewController.m; sourceTree = "<group>"; };
-		0348143B1B8D8E7500B4B364 /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Account.h; path = "YuCloud/Core Data/Account.h"; sourceTree = "<group>"; };
-		0348143C1B8D8E7500B4B364 /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Account.m; path = "YuCloud/Core Data/Account.m"; sourceTree = "<group>"; };
 		0348143E1B8D90DE00B4B364 /* RunInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RunInfo.h; path = "YuCloud/Core Data/RunInfo.h"; sourceTree = "<group>"; };
 		0348143F1B8D90DE00B4B364 /* RunInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RunInfo.m; path = "YuCloud/Core Data/RunInfo.m"; sourceTree = "<group>"; };
 		034E42D31B9E7E1A00A3C1B8 /* YuAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YuAccountManager.h; path = YuCloud/Account/YuAccountManager.h; sourceTree = "<group>"; };
@@ -159,6 +159,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03109CFB1B9EB3450049B558 /* Net Interface */ = {
+			isa = PBXGroup;
+			children = (
+				03109CFC1B9EB3970049B558 /* YuCloudInterface.h */,
+				03109CFD1B9EB3970049B558 /* YuCloudInterface.m */,
+			);
+			name = "Net Interface";
+			sourceTree = "<group>";
+		};
 		0311DBAC1B8C475E009555D2 /* QR */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,8 +182,6 @@
 		034814371B8D8E0C00B4B364 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				0348143B1B8D8E7500B4B364 /* Account.h */,
-				0348143C1B8D8E7500B4B364 /* Account.m */,
 				0348143E1B8D90DE00B4B364 /* RunInfo.h */,
 				0348143F1B8D90DE00B4B364 /* RunInfo.m */,
 			);
@@ -250,6 +257,7 @@
 				03A9553B1B9695C400B68062 /* Data Models */,
 				034814371B8D8E0C00B4B364 /* Core Data */,
 				034E42D21B9E7A8A00A3C1B8 /* Account */,
+				03109CFB1B9EB3450049B558 /* Net Interface */,
 				03E225F21B955068008139C9 /* Views */,
 				03A08A7D1B87269E00C0D6AD /* ViewControllers */,
 				03C96F5F1B87213400E55897 /* YuCloud */,
@@ -512,7 +520,7 @@
 				03C021191B8C237E00D1136B /* CommPros.m in Sources */,
 				03B048F51B9D2B1D007740A2 /* YuMapView.m in Sources */,
 				0311DBAF1B8C477D009555D2 /* QRScanViewController.m in Sources */,
-				0348143D1B8D8E7500B4B364 /* Account.m in Sources */,
+				03109CFE1B9EB3970049B558 /* YuCloudInterface.m in Sources */,
 				03F320401B8EF5AC000356B0 /* DeviceTableViewCell.m in Sources */,
 				0384DC921B958823009582DB /* PushToTalkButton.m in Sources */,
 				03C96F691B87213400E55897 /* YuCloud.xcdatamodeld in Sources */,
@@ -670,7 +678,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/YuCloud/",
-					"$(PROJECT_DIR)/YuCloud/MAMapKit",
 				);
 				INFOPLIST_FILE = YuCloud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -693,7 +700,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/YuCloud/",
-					"$(PROJECT_DIR)/YuCloud/MAMapKit",
 				);
 				INFOPLIST_FILE = YuCloud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
